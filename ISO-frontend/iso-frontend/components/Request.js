@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     paddingTop: '1%',
     paddingRight: '3%',
     borderRadius: '20%',
+    marginTop: '2%',
   },
   header: {
     display: 'flex',
