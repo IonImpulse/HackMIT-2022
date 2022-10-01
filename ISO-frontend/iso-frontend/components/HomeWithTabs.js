@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
-import SubmitRequest from './SubmitRequest';
-import Settings from './Settings';
-import MyStuff from './MyStuff';
+import SubmitRequest from '../views/SubmitRequest';
+import Login from '../views/Login'
+import Settings from '../views/Settings';
+import MyStuff from '../views/MyStuff';
+import Feed from '../views/Feed'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeWithTabs = () => {
@@ -15,8 +17,7 @@ const HomeWithTabs = () => {
     }
   return (
         <SafeAreaView style={styles.biggerContainer}>
-            {/* Add component here */}
-            {tab == "Home" && <Text>Home page placeholder</Text>}
+            {tab == "Home" && <Feed />}
             {tab == "Post" && <SubmitRequest/>}
             {tab == "My Stuff" && <MyStuff />}
             {tab == "Settings" && <Settings />}
