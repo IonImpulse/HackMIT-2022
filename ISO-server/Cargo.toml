@@ -6,3 +6,18 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+actix-web = "4.1.0"
+actix-cors = "0.6.2"
+actix-web-httpauth = "*"
+serde = "*"
+serde_json = "*"
+lazy_static = "*"
+tokio = { version = "*", features = ["full"] }
+futures = "*"
+env_logger = "*"
+ctrlc = "*"
+log = "*"
+regex = "*"
+toml = "*"
+actix-web-middleware-redirect-scheme = { version = "4.0.0", git = "https://github.com/AOx0/actix-web-middleware-redirect-scheme" }
+uuid = "*"
