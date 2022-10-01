@@ -1,4 +1,5 @@
 mod user;
+mod post;
 
 use user::*;
 
