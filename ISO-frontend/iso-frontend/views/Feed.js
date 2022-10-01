@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         height: '100%',
         flexDirection: 'column',
-        backgroundColor: "lightblue"
     }
 })
 
