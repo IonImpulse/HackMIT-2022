@@ -63,16 +63,12 @@ impl User {
 
         // Set custom random 6 digit code
         
-        let code = User::generate_code();
-
         let res = client.post(format!("https://verify.twilio.com/v2/Services/{}/Verifications", lock.twilio_service))
             .header("Content-Type", "application/x-www-form-urlencoded")
             .basic_auth(lock.twilio_sid.clone(), Some(lock.twilio_token.clone()))
-            .body(format!("To={}&Channel=sms&CustomCode={}", phone_number, code));
-        println!("username: {}, password: {}", lock.twilio_sid, lock.twilio_token);
-        println!("{:?}", res);
-
-        let res = res.send().await;
+            .form(&[("To", phone_number.clone()), ("Channel", "sms".to_string())])
+            .send()
+            .await;
 
         if res.is_err() {
             return Err("Error sending verification request".to_string());
@@ -80,14 +76,19 @@ impl User {
 
         let res = res.unwrap();
 
-        println!("Verification response: {}", res.text().await.unwrap());
+        let text = res.text().await.unwrap();
+        // parse as json
+        let json: serde_json::Value = serde_json::from_str(&text).unwrap();
+
+        let code = json["url"].as_str().unwrap();
+
         let mut db = db_mut().await;
 
         let user = db.get_user_by_number(&phone_number);
 
         if user.is_ok() {
             let uuid = user.as_ref().unwrap().uuid.clone();
-            user.unwrap().set_verification_code(code);
+            user.unwrap().set_verification_code(code.to_string());
 
             return Ok(uuid);
         }
@@ -100,7 +101,7 @@ impl User {
 
         let mut user = user.unwrap();
 
-        user.set_verification_code(code);
+        user.set_verification_code(code.to_string());
 
         let _ = db.add_user(user.clone());
 
@@ -109,14 +110,34 @@ impl User {
         Ok(user.uuid)
     }
 
-    pub fn check_verification(&mut self, code: String) -> Result<User, String> {
-        if self.verified == code {
-            self.verified = "true".to_string();
+    pub async fn check_verification(&mut self, code: String) -> Result<User, String> {
+        let client = reqwest::Client::new();
+        let lock = CONFIG.lock().await;
 
-            return Ok(self.clone())
-        } else {
-            return Err("Invalid verification code".to_string());
+        // Set custom random 6 digit code
+        
+        let res = client.post(format!("https://verify.twilio.com/v2/Services/{}/VerificationCheck", lock.twilio_service))
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .basic_auth(lock.twilio_sid.clone(), Some(lock.twilio_token.clone()))
+            .form(&[("To", self.phone_number.clone()), ("Code", code)])
+            .send()
+            .await;
+
+        if res.is_err() {
+            return Err("Error sending verification check request".to_string());
         }
+
+        let res = res.unwrap();
+
+        let text = res.text().await.unwrap();
+
+        // parse as json
+        let json: serde_json::Value = serde_json::from_str(&text).unwrap();
+
+        println!("{:?}", json);
+
+        Err("Error verifying code".to_string())
+
     }
 
 

@@ -139,7 +139,7 @@ pub async fn check_verification(
 
     let mut db = db_mut().await;
 
-    let result = db.check_verification(data.uuid, data.code);
+    let result = db.check_verification(data.uuid, data.code).await;
 
     if result.is_ok() {
         let json = json!({
