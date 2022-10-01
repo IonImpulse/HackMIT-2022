@@ -79,13 +79,12 @@ with open('emailMessage.csv' ,'w') as writeFile:
     attachHeader=['MessageId','parentId','Name','ContentType','Body']
     attachHeaderLine.append(attachHeader)
     attachWriter.writerows(attachHeaderLine)
-    for message in mailbox.mbox('Sample.mbox'):
+    for message in mailbox.mbox('ISO.mbox'):
         row=[]
         header=[]
         header.append('Attachemnt')
         header.append('Body')
         if message.is_multipart():
-            extractattachements(attachFile,message,message['Message-ID'],row,header)
             messagePart=[]
             for part in message.walk():
                 print(part.get_content_maintype())
@@ -127,7 +126,11 @@ with open('emailMessage.csv' ,'w') as writeFile:
             row.append('')
         if 'Date' in message:
             header.append('Date')
-            date_time_obj = datetime.datetime.strptime(message['Date'], '%a, %d %b %Y %H:%M:%S %z')
+            try :
+                date_time_obj = datetime.datetime.strptime(message['Date'], '%a, %d %b %Y %H:%M:%S %z')
+            except :
+                # Make fake one
+                date_time_obj = datetime.datetime.strptime('Thu, 01 Jan 1970 00:00:00 +0000', '%a, %d %b %Y %H:%M:%S %z')
             print(date_time_obj)
             row.append(str(date_time_obj.strftime('%Y-%m-%d %H:%M:%S')))
         else:
@@ -144,12 +147,10 @@ with open('emailMessage.csv' ,'w') as writeFile:
         if number==1:
             lines.append(header)
         lines.append(row)
-        if number==100:
-            break
+
     writer = csv.writer(writeFile)
     writer.writerows(lines)
 
 
 writeFile.close()
 attachFile.close()
-

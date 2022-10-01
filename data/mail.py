@@ -30,7 +30,8 @@ try:
   import re
   import sys
   import time
-except ImportError:
+except ImportError as e:
+  print (e)
   print ("Failed while importing modules")
   exit(-2)
 
