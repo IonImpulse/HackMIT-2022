@@ -4,9 +4,9 @@ const Request = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>{props.title}</Text>
+                <Text style={styles.title}>{props.title}</Text> 
                 <Text>{props.location}</Text>
-            </View>
+            </View> 
             <Text style={styles.content}>{props.children}</Text>
         </View>
     );
@@ -34,4 +34,3 @@ const styles = StyleSheet.create({
 });
 
 export default Request;
-
