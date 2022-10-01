@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Text, View, StyleSheet, TextInput, Pressable } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Pressable, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import PhoneInput from "react-native-phone-number-input";
 
 const Login = (props) => {
@@ -11,16 +11,14 @@ const Login = (props) => {
     }
 
     return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
             <View>
                 <Text style={styles.title}>Sign up ✍️</Text>
                 <PhoneInput
-                    layout="first"
+                    withDarkTheme
                     onChangeText={(text) => {
                     changePhoneNumber(text);
-                    defaultCode='US'
-                    withDarkTheme
-                    autoFocus
                     }}
                 />
                 <TextInput
@@ -41,6 +39,7 @@ const Login = (props) => {
                 ><Text style={{color: 'white'}}>Submit</Text></Pressable>
             </View>
         </View>
+        </TouchableWithoutFeedback>
     );
 }
 

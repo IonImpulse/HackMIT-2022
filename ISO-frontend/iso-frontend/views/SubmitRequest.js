@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
+import { Alert, StyleSheet, Text, View, SafeAreaView, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import { style } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
 
@@ -12,7 +12,7 @@ const styleDict = {
 const SubmitRequest = (props) => {
     const [type, changeType] = useState(true);
     const [title, setTitle] = useState("");
-
+    
     const DATA = [
         { id: 1, name: 'Food' },
         { id: 2, name: 'Electronics' },
@@ -24,22 +24,38 @@ const SubmitRequest = (props) => {
       ];
 
       const [selectedItems, setSelectedItems] = useState([]);
+ 
+      
 
-      const onSubmit = () => {
+     const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Submitted!",
+      "Your post for " + title + " was successful",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+
+    const onSubmit = () => {
         console.log("submit button pressed");
+        createTwoButtonAlert();
+        setSelectedItems([]);
+        setTitle("");
+        changeType(true);
+        
 
       };
 
   const onSelectedItemsChange = (selectedItems) => {
-
+ 
     setSelectedItems(selectedItems);
-
+ 
     for (let i = 0; i < selectedItems.length; i++) {
       var tempItem = DATA.find(item => item.id === selectedItems[i]);
       // console.log(tempItem);
     }
     console.log(selectedItems);
-
+ 
   };
 
 
@@ -67,7 +83,7 @@ const SubmitRequest = (props) => {
       />
 
                 </View>
-
+                
 
             </View>
 
@@ -98,7 +114,7 @@ const SubmitRequest = (props) => {
           tagContainerStyle={{backgroundColor: "red"}}
         />
 
-            </View>
+            </View>    
         </SafeAreaView>
             <TouchableHighlight onPress={onSubmit}style={styles.submit}>
                 <Text>Submit</Text>
@@ -106,7 +122,7 @@ const SubmitRequest = (props) => {
 
         </SafeAreaView>
         </View>
-
+        
     );
 }
 
@@ -114,25 +130,25 @@ const styles = StyleSheet.create({
     biggerContainer: {
         height:"100%",
         width: "100%",
-        justifyContent: "center",
+        backgroundColor: "white",
 
     },
     bigContainer: {
         margin: 60,
-    //   flexDirection: "column",
-      alignItems: "center",
+    //   flexDirection: "column", 
+      alignItems: "center", 
 
     },
     container: {
-        margin: 10,
+        marginTop: 20,
         width: "100%",
-
-
+        
+        
 
 
     },
     selectContainer: {
-
+        
         // alignSelf:"center",
 
       },
