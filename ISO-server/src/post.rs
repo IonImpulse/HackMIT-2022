@@ -1,23 +1,29 @@
+use ::serde::{Deserialize, Serialize};
 
+
+#[derive(Default, Deserialize, Serialize, Clone)]
 pub enum PostType {
-    ISO,
+    #[default] ISO,
     OSI,
 }
 
+#[derive(Default, Deserialize, Serialize, Clone)]
 pub enum PostState {
-    Draft,
+    #[default] Draft,
     Posted,
     Accepted,
     Expired,
 }
 
+#[derive(Default, Deserialize, Serialize, Clone)]
 pub enum TimeType {
     ServiceNow,
     ServiceFuture,
-    ItemPermanant,
+    #[default] ItemPermanant,
     ItemLoan,
 }
 
+#[derive(Default, Deserialize, Serialize, Clone)]
 pub struct Post {
     pub uuid: String,
     pub iso_or_osi: PostType,
@@ -36,4 +42,10 @@ pub struct Post {
 
     time_type: TimeType,
     tags: Vec<String>,
+}
+
+impl Post {
+    pub fn get_owner(&self) -> String {
+        self.user_owner.clone()
+    }
 }
