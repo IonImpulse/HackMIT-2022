@@ -127,6 +127,7 @@ async fn async_main() -> std::io::Result<()> {
                 .service(start_verification)
                 .service(check_verification)
                 .service(claim_post)
+                .service(get_individual_post)
         })
         .bind(ADDRESS)?
         .run()
@@ -163,6 +164,7 @@ async fn async_main() -> std::io::Result<()> {
                 .service(start_verification)
                 .service(check_verification)
                 .service(claim_post)
+                .service(get_individual_post)
 
         })
         .bind_openssl(ADDRESS_HTTPS, builder)?

@@ -24,7 +24,7 @@ Accept a user's JSON object as request body and returns the user's information.
     phone_number: "E.164", // User's phone number
     current_location: [0.0, 0.0], // User's current location
     karma: 0, // User's karma
-    posts: [], // Array of user's posts 
+    posts: [], // Array of user's posts UUIDS
     verified: true, // Whether user is verified
 }
 ```
