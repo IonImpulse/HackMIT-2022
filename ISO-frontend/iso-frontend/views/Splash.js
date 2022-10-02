@@ -10,9 +10,8 @@ const Splash = (props) => {
     useEffect(() => {
         async function fn() {
             let obj = await AsyncStorage.getItem('@user_object')
-            console.log(obj);
             if (obj != null) {
-                userContext.setUser(JSON.parse(obj));
+                userContext.user = JSON.parse(obj);
                 props.navigation.navigate('Feed');
                 console.log(userContext.user);
                 let res = await fetch('https://isoapp.dev/api/v1/users/userInfo', {
@@ -30,13 +29,9 @@ const Splash = (props) => {
 
                 let json = await res.json();
 
-                console.log(json);
-
-                if(json.success) {
-                    userContext.setUser(json.results);
-                    await AsyncStorage.setItem('@user_object', JSON.stringify(json.results));
-                    props.navigation.navigate('Feed');
-                }
+                userContext.user = json.results;
+                await AsyncStorage.setItem('@user_object', JSON.stringify(json.results));
+                props.navigation.navigate('Feed');
             }
             else {
                 props.navigation.navigate('Signup');
