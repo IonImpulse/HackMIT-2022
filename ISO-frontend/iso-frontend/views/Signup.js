@@ -121,7 +121,7 @@ const Signup = (props) => {
                             styles.wrapperCustom]}
                     ><Text style={{color: 'white'}}>Submit</Text></Pressable>
                 </View>
-                <Button title="Bypass login for debugging" onPress={()=>props.navigation.navigate('Feed')}/>
+                {/* <Button title="Bypass login for debugging" onPress={()=>props.navigation.navigate('Feed')}/> */}
             </View>
         </View>
     );
