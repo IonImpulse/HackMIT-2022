@@ -31,7 +31,7 @@ pub async fn get_post_page(
 
             index_offset += 1;
         }
-        
+
         let json = json!({
             "results": pages,
             "next": index + index_offset,
@@ -41,7 +41,7 @@ pub async fn get_post_page(
     }
 }
 
-#[get("/api/v1/users/userInfo")]
+#[post("/api/v1/users/userInfo")]
 pub async fn get_user_info(
     user: web::Json<User>,
 ) -> Result<HttpResponse, Error> {

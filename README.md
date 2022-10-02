@@ -15,7 +15,7 @@ Returns a page of posts from the feed. The index is the page number, starting at
 
 ## GET
 
-### `GET` /api/v1/users/userInfo
+### `POST` /api/v1/users/userInfo
 Accept a user's JSON object as request body and returns the user's information.
 ```js
 {

@@ -41,6 +41,7 @@ const Request = ({ data, title, location_string, type, tags}) => {
             if(json.success) {
               Alert.alert("Claimed!");
               // Rerender home
+              props.navigation.navigate('Feed');
             }
           }
         }

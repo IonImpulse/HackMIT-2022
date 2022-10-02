@@ -14,6 +14,27 @@ const Splash = (props) => {
             if (obj != null) {
                 userContext.setUser(JSON.parse(obj));
                 props.navigation.navigate('Feed');
+                let res = await fetch('https://isoapp.dev/api/v1/users/userInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    credentials: 'same-origin',
+                    redirect: 'follow',
+                    referrerPolicy: 'no-referrer',
+                    body: JSON.stringify({user: userContext.user})
+                });
+
+                let json = await res.json();
+
+                console.log(json);
+
+                if(json.success) {
+                    userContext.setUser(json.results);
+                    props.navigation.navigate('Feed');
+                }
             }
             else {
                 props.navigation.navigate('Signup');
