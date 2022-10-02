@@ -42,7 +42,6 @@ lazy_static! {
 
 // Debug vs release address
 const ADDRESS: &str = "127.0.0.1:8080";
-const ADDRESS_HTTP: &str = "0.0.0.0:8080";
 const ADDRESS_HTTPS: &str = "0.0.0.0:8443";
 
 const DB_NAME: &str = "db.json";
@@ -160,7 +159,6 @@ async fn async_main() -> std::io::Result<()> {
                 .service(check_verification)
 
         })
-        .bind(ADDRESS_HTTP)?
         .bind_openssl(ADDRESS_HTTPS, builder)?
         .run()
         .await;
