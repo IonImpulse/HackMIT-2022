@@ -12,6 +12,7 @@ const styleDict = {
 const SubmitRequest = (props) => {
     const [type, changeType] = useState(true);
     const [title, setTitle] = useState("");
+    const [selectedItems, setSelectedItems] = useState([]);
     
     const DATA = [
         { id: 1, name: 'Food' },
@@ -20,10 +21,11 @@ const SubmitRequest = (props) => {
         { id: 4, name: 'Service' },
         { id: 5, name: 'Furniture' },
         { id: 6, name: 'Stolen/Lost' },
-        { id: 7, name: 'Transportation'}
+        { id: 7, name: 'Transportation'},
+        { id: 8, name: 'Other'}
       ];
 
-      const [selectedItems, setSelectedItems] = useState([]);
+      
  
       
 
@@ -35,9 +37,58 @@ const SubmitRequest = (props) => {
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ]
     );
+      //api call
+
+    
+    
+    const postExample = async () => {
+        console.log(selectedItems);
+        var requestBody = { 
+            title: "coffee2",
+            post_type: "ISO", 
+            owner_uuid: "test", 
+            time_type: "ItemLoan", 
+            location_string: "Sontag",
+            tags: ["food", "furniture"]
+    
+        };
+        console.log("called api");
+        requestBody.title = String(title);
+        if (type){
+            requestBody.post_type = "ISO";
+        } else {
+            requestBody.post_type = "OSI";
+        }
+        requestBody.tags = selectedItems.map((index) => DATA[index-1].name);
+        console.log(requestBody);
+
+        let requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        };
+        console.log(requestOptions);
+
+        try {
+            await fetch(
+                'https://isoapp.dev/api/v1/posts/new', requestOptions)
+                .then(response => {
+                    response.json()
+                        .then(data => {
+                            console.log(data);
+                        });
+                })
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
 
     const onSubmit = () => {
+
+        //TODO: add api post request here
         console.log("submit button pressed");
+        postExample();
         createTwoButtonAlert();
         setSelectedItems([]);
         setTitle("");
@@ -48,13 +99,22 @@ const SubmitRequest = (props) => {
 
   const onSelectedItemsChange = (selectedItems) => {
  
+    
     setSelectedItems(selectedItems);
+    // var arr = [];
+    // if (selectedItems.length > 0){
+    //     setSelectedItems(selectedItems.map((index) => DATA[index].name));
+
+    // }
+
+    
+    // setSelectedItems(arr);
+    console.log(selectedItems);
  
     for (let i = 0; i < selectedItems.length; i++) {
-      var tempItem = DATA.find(item => item.id === selectedItems[i]);
+    //   var tempItem = DATA.find(item => item.id === selectedItems[i]);
       // console.log(tempItem);
     }
-    console.log(selectedItems);
  
   };
 

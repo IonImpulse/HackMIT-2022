@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, TextInput,ScrollView, Keyboard } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
 import SubmitRequest from '../views/SubmitRequest';
 import Login from '../views/Login'
 import Settings from '../views/Settings';
@@ -25,32 +25,32 @@ const HomeWithTabs = () => {
             {/* End add component)*/}
 
             <View style={styles.tabBar}>
-                <TouchableOpacity onPress={()=> {tabPressed("Home")}} style={styles.button}>
+                <TouchableHighlight onPress={()=> {tabPressed("Home")}} style={styles.button}>
                     <>
                     <Icon name="home" size={30} color="black" />
                     <Text>Home</Text>
                     </>
-                </TouchableOpacity>
+                </TouchableHighlight>
 
-                <TouchableOpacity onPress={()=> {tabPressed("Post")}} style={styles.button}>
+                <TouchableHighlight onPress={()=> {tabPressed("Post")}} style={styles.button}>
                     <>
                     <Icon name="plus-square-o" size={30} color="black" />
                     <Text>Post</Text>
                     </>
-                </TouchableOpacity>
+                </TouchableHighlight>
                     
-                <TouchableOpacity onPress={()=> {tabPressed("My Stuff")}} style={styles.button}>
+                <TouchableHighlight onPress={()=> {tabPressed("My Stuff")}} style={styles.button}>
                     <>
                     <Icon name="user-o" size={28} color="black" />
                     <Text>My Stuff</Text>
                     </>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=> {tabPressed("Settings")}} style={styles.button}>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={()=> {tabPressed("Settings")}} style={styles.button}>
                     <>
                     <Icon name="gear" size={30} color="black" />
                     <Text>Settings</Text>
                     </>
-                </TouchableOpacity>
+                </TouchableHighlight>
             </View>
 
         </SafeAreaView>
@@ -73,16 +73,16 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         height: "10%",
         backgroundColor: "white",
-        borderWidth: "1",
         bottom: 0,
     },
     button: {
-        marginTop: "1%",
+        marginTop: "2%",
+        marginBottom: "2%",
         // height: "30%",
         // width: "20%",
         backgroundColor: "white",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-between",
         flexDirection: "column",
     }
 });
