@@ -12,6 +12,7 @@ const styleDict = {
 const SubmitRequest = (props) => {
     const [type, changeType] = useState(true);
     const [title, setTitle] = useState("");
+    const [location, setLocation] = useState("");
     const [selectedItems, setSelectedItems] = useState([]);
     
     const DATA = [
@@ -60,6 +61,7 @@ const SubmitRequest = (props) => {
             requestBody.post_type = "OSI";
         }
         requestBody.tags = selectedItems.map((index) => DATA[index-1].name);
+        requestBody.location_string = location;
         console.log(requestBody);
 
         let requestOptions = {
@@ -139,6 +141,21 @@ const SubmitRequest = (props) => {
         placeholder="Tap return when done"
         onChangeText={newText => setTitle(newText)}
         defaultValue={title}
+
+      />
+
+                </View>
+                
+
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.subtitleText}>Pickup Location</Text>
+                <View style={styles.inputView} >
+                <TextInput
+        style={{height: 30}}
+        placeholder="Tap return when done"
+        onChangeText={newText => setLocation(newText)}
+        defaultValue={location}
 
       />
 

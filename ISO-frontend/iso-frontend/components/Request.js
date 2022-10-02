@@ -8,7 +8,7 @@ const Request = (props) => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>{props.type} {props.title}</Text>
-                <Text>{props.location}</Text>
+                <Text>{props.location_string}</Text>
             </View>
             {/* <Text style={styles.content}>{props.children}</Text> */}
             <View style={styles.tags}>
