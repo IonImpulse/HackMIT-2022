@@ -25,7 +25,7 @@ const Splash = (props) => {
                     credentials: 'same-origin',
                     redirect: 'follow',
                     referrerPolicy: 'no-referrer',
-                    body: JSON.stringify(userContext.user)
+                    body: obj
                 });
 
                 let json = await res.json();
@@ -34,6 +34,7 @@ const Splash = (props) => {
 
                 if(json.success) {
                     userContext.setUser(json.results);
+                    await AsyncStorage.setItem('@user_object', JSON.stringify(json.results));
                     props.navigation.navigate('Feed');
                 }
             }
