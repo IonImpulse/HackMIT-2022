@@ -58,15 +58,24 @@ pub async fn get_user_info(
     }
 }
 
+#[post("/api/v1/posts/testAddPost")]
+pub async fn new_test_post(
+    post: web::Json<Post>,
+) -> Result<HttpResponse, Error> {
+    let mut data = db_clone().await;
+    let post = post.into_inner();
+    data.feed.insert(0, post);
+
+    Ok(HttpResponse::Ok().finish())
+}
+
 #[post("/api/v1/posts/new")] 
 pub async fn new_post(
     post: web::Json<(String, Post)>,
 ) -> Result<HttpResponse, Error> {
-    let mut data = db_clone().await;
-
     let (token, post) = post.into_inner();
 
-    let db = db_mut().await;
+    let mut db = db_mut().await;
 
     let user = db.get_user_by_uuid(&post.get_owner());
 
@@ -91,6 +100,10 @@ pub async fn new_post(
     let json = json!({
         "results": post,
     });
+
+    db.feed.insert(0, post);
+
+    drop(db);
 
     Ok(HttpResponse::Ok().json(json))
 }
