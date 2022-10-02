@@ -11,6 +11,9 @@ import RequestDetails from './views/RequestDetails';
 import HomeWithTabs from './components/HomeWithTabs';
 import { useFonts } from 'expo-font';
 const Stack = createNativeStackNavigator();
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 export default function App() {
   const [user, setUser] = useState({});

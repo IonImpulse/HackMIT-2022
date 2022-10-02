@@ -28,7 +28,7 @@ const Feed = (props) => {
     return (
         <SafeAreaView style={styles.wrapper}>
         <Header title="Home"/>
-        {data.length != 0 ?
+        {data ?
         <ScrollView style={styles.container}>
         {data != null &&
         data.map((req) => 
