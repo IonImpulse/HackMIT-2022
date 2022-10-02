@@ -16,6 +16,7 @@ const Splash = (props) => {
                 props.navigation.navigate('Login');
             }
         }
+        fn();
     }, [])
 
     return (

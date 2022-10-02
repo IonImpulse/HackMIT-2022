@@ -50,7 +50,8 @@ const Signup = (props) => {
     } 
 
     useEffect(() => {
-        async function fn() { 
+        async function fn() {
+            if(uuid === "") return;
             const response = await fetch('https://isoapp.dev/api/v1/users/checkVerification', {
                     headers: {
                         'Content-Type': 'application/json'
