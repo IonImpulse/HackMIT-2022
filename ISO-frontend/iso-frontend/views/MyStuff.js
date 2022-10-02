@@ -21,7 +21,10 @@ const MyStuff = () => {
 
                 postList.push(json.body)
             }
+            setPosts(postList);
+            console.log(postList);
         }
+        fn();
     }, [])
 
 
@@ -34,9 +37,21 @@ const MyStuff = () => {
                     <Text style={styles.subtitleText}>Filters: </Text>
 
                 </View>
-                <ScrollView style={styles.list}>
-                    <Text key={0}>your posts will go here</Text>
-                </ScrollView>
+                <SafeAreaView style={styles.wrapper}>
+                    <Header title="My Interactions"/>
+                    {posts ?
+                    <ScrollView style={styles.container}>
+                    {posts != null &&
+                    posts.map((req) => 
+                        // <Text>{req.title}</Text>
+                        <Request key={Math.floor(Math.random() * 100000)}navigation={props.navigation} user={userObject} data={req} type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
+                        )
+                    }
+                    </ScrollView>
+                    :
+                    <Text>Be patient, still loading</Text>
+                    } 
+                </SafeAreaView>
                 
 
     </View>
