@@ -40,7 +40,7 @@ pub async fn get_user_info(
 ) -> Result<HttpResponse, Error> {
     let data = db_clone().await;
 
-    let user = data.get_user_by_uuid(&user.uuid);
+    let user = data.get_user_by_token(&user.uuid, &user.get_token());
 
     if user.is_err() {
         let json = json!({
@@ -52,6 +52,29 @@ pub async fn get_user_info(
     } else {
         let json = json!({
             "results": user.unwrap(),
+        });
+
+        return Ok(HttpResponse::Ok().json(json));
+    }
+}
+
+#[get("/api/v1/posts/getIndividual/{uuid}")]
+pub async fn get_individual_post(
+    uuid: web::Path<String>,
+) -> Result<HttpResponse, Error> {
+    let data = db_clone().await;
+
+    let post = data.get_post_by_uuid(&uuid);
+
+    if post.is_err() {
+        let json = json!({
+            "error": post.err().unwrap()
+        });
+
+        return Ok(HttpResponse::BadRequest().json(json));
+    } else {
+        let json = json!({
+            "results": post.unwrap(),
         });
 
         return Ok(HttpResponse::Ok().json(json));

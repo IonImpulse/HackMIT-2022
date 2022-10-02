@@ -38,9 +38,14 @@ impl Data {
         Ok(page)
     }
 
-    pub fn get_user_by_uuid(&self, uuid: &str) -> Result<User, String> {
+    pub fn get_user_by_token(&self, uuid: &str, token: &str) -> Result<User, String> {
         if self.users.contains_key(uuid) {
-            return Ok(self.users[uuid].clone());
+            let user = self.users.get(uuid).unwrap();
+            if user.get_token() == token {
+                return Ok(user.clone());
+            } else {
+                return Err("Invalid token".to_string());
+            }
         } else {
             return Err("User not found".to_string());
         }
@@ -89,7 +94,14 @@ impl Data {
 
     pub async fn add_post(&mut self, title: String, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>) -> Result<(), String> {
         if self.users.contains_key(&owner_uuid) || true {
-            let mut post = Post::new(title, post_type, owner_uuid, time_type, tags);
+            let post = Post::new(title, post_type, owner_uuid.clone(), time_type, tags);
+
+            let user = self.users.get_mut(&owner_uuid);
+
+            if user.is_some() {
+                let user = user.unwrap();
+                user.add_post(post.uuid.clone());
+            }
 
             self.feed.insert(0, post.clone());
 
@@ -97,6 +109,16 @@ impl Data {
         } else {
             return Err("User not found".to_string());
         }
+    }
+
+    pub fn get_post_by_uuid(&self, uuid: &str) -> Result<Post, String> {
+        for post in self.feed.iter() {
+            if post.uuid == uuid {
+                return Ok(post.clone());
+            }
+        }
+
+        Err("Post not found".to_string())
     }
 }
 

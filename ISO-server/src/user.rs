@@ -20,7 +20,7 @@ pub struct User {
     phone_number: String,
     current_location: (f64, f64),
     karma: i32,
-    posts: Vec<Post>,
+    posts: Vec<String>,
     verified: String,
 }
 
@@ -185,5 +185,11 @@ impl User {
     
     pub fn get_phone_number(&self) -> String {
         self.phone_number.clone()
+    }
+
+    pub fn add_post(&mut self, post: String) -> &mut Self {
+        self.posts.push(post);
+
+        self
     }
 }
