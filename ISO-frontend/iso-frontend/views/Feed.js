@@ -3,7 +3,7 @@ import Request from '../components/Request';
 
 const Feed = (props) => {
     return (
-        <View style={{flex: 1}}>
+        <View style={styles.wrapper}>
             <ScrollView style={styles.container}>
                 <Request title="My ISO" location="MA">This is my ISO</Request>
                 <Request title="My ISO" location="MA">This is my ISO</Request>
@@ -30,7 +30,13 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         height: '100%',
+        width: '100%',
         flexDirection: 'column',
+        backgroundColor: 'lightgray',
+    },
+    wrapper: {
+        width: '100%',
+        display: 'flex',
     }
 })
 

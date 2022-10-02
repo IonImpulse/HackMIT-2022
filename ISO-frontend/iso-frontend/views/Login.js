@@ -1,14 +1,37 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TextInput, Pressable, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import PhoneInput from "react-native-phone-number-input";
 
 const Login = (props) => {
     const [phoneNumber, changePhoneNumber] = useState("");
     const [country, changeCountry] = useState("");
+    const [success, setSuccess] = useState(false);
 
-    const submitData = () => {
+    async function submitData() {
+        try {
+            console.log(phoneNumber);
 
-    }
+            const response = await fetch('https://isoapp.dev/api/v1/users/startVerification', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({phone_number: phoneNumber, country: "US"})
+            });
+
+            const test = await response.text();
+
+            console.log(test);
+
+        } catch(error) {
+            alert("Network failure!");
+        }
+    } 
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

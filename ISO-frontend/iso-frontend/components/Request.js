@@ -15,9 +15,9 @@ const Request = (props) => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    width: '100%',
+    width: '95%',
     height: '10%',
-    backgroundColor: 'lightblue',
+    backgroundColor: 'lightgreen',
     paddingLeft: "3%",
     paddingTop: '1%',
     paddingRight: '3%',
