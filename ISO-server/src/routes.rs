@@ -58,7 +58,7 @@ pub async fn get_user_info(
     }
 }
 
-#[get("/api/v1/posts/getIndividual/{uuid}")]
+#[get("/api/v1/posts/single/{uuid}")]
 pub async fn get_individual_post(
     uuid: web::Path<String>,
 ) -> Result<HttpResponse, Error> {
