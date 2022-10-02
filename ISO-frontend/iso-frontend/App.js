@@ -9,6 +9,7 @@ import SubmitRequest from './views/SubmitRequest';
 import MyStuff from './views/MyStuff';
 import Settings from './views/Settings';
 import Login from './views/Login';
+import RequestDetails from './views/RequestDetails';
 
 import HomeWithTabs from './components/HomeWithTabs';
 
@@ -21,11 +22,11 @@ export default function App() {
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
-        <Stack.Screen name="Login" component={Login} />
+
         <Stack.Screen name="Feed" component={HomeWithTabs} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="RequestDetails" component={RequestDetails} />
         
-        {/* <Stack.Screen name="MyStuff" component={MyStuff} />
-        <Stack.Screen name="Settings" component={Settings} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

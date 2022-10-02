@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Request from '../components/Request';
 import Header from '../components/Header';
 
-const Feed = (props) => {
+const Feed = ({navigation}) => {
     const tags = ["Food", "Furniture"];
 
     const [data, setData] = useState([]);
@@ -31,7 +31,7 @@ const Feed = (props) => {
                 {data != null &&
                 data.map((req) => 
                     // <Text>{req.title}</Text>
-                    <Request type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
+                    <Request navigation={navigation} data={req} type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
     
                     )
                 }
