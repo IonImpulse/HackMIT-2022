@@ -29,6 +29,7 @@ pub enum TimeType {
 #[derive(Default, Deserialize, Serialize, Clone)]
 pub struct Post {
     pub uuid: String,
+    pub title: String,
     pub iso_or_osi: PostType,
     pub state: PostState,
 
@@ -52,9 +53,10 @@ impl Post {
         self.user_owner.clone()
     }
 
-    pub fn new(post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>) -> Post {
+    pub fn new(title: String, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>) -> Post {
         let mut post = Post::default();
 
+        post.title = title;
         post.uuid = uuid::Uuid::new_v4().to_string();
         post.iso_or_osi = post_type;
         post.state = PostState::Draft;

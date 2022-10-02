@@ -86,9 +86,9 @@ impl Data {
         }
     }
 
-    pub async fn add_post(&mut self, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>) -> Result<(), String> {
+    pub async fn add_post(&mut self, title: String, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>) -> Result<(), String> {
         if self.users.contains_key(&owner_uuid) || true {
-            let mut post = Post::new(post_type, owner_uuid, time_type, tags);
+            let mut post = Post::new(title, post_type, owner_uuid, time_type, tags);
 
             self.feed.insert(0, post.clone());
 
