@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, TextInput,ScrollView, Keyboard } from 'react-native';
 import SubmitRequest from '../views/SubmitRequest';
 import Login from '../views/Login'
 import Settings from '../views/Settings';
@@ -17,40 +17,40 @@ const HomeWithTabs = () => {
     }
   return (
         <SafeAreaView style={styles.biggerContainer}>
-            {/*tab == "Home" && <Login />*/}
-            {/*tab == "Post" && <SubmitRequest/>*/}
-            {/*tab == "My Stuff" && <MyStuff />*/}
-            {/*tab == "Settings" && <Settings />*/}
+            {tab == "Home" && <Feed />}
+            {tab == "Post" && <SubmitRequest/>}
+            {tab == "My Stuff" && <MyStuff />}
+            {tab == "Settings" && <Settings />}
             
             {/* End add component)*/}
 
             <View style={styles.tabBar}>
-                <TouchableHighlight onPress={()=> {tabPressed("Home")}} style={styles.button}>
+                <TouchableOpacity onPress={()=> {tabPressed("Home")}} style={styles.button}>
                     <>
                     <Icon name="home" size={30} color="black" />
                     <Text>Home</Text>
                     </>
-                </TouchableHighlight>
+                </TouchableOpacity>
 
-                <TouchableHighlight onPress={()=> {tabPressed("Post")}} style={styles.button}>
+                <TouchableOpacity onPress={()=> {tabPressed("Post")}} style={styles.button}>
                     <>
                     <Icon name="plus-square-o" size={30} color="black" />
                     <Text>Post</Text>
                     </>
-                </TouchableHighlight>
+                </TouchableOpacity>
                     
-                <TouchableHighlight onPress={()=> {tabPressed("My Stuff")}} style={styles.button}>
+                <TouchableOpacity onPress={()=> {tabPressed("My Stuff")}} style={styles.button}>
                     <>
                     <Icon name="user-o" size={28} color="black" />
                     <Text>My Stuff</Text>
                     </>
-                </TouchableHighlight>
-                <TouchableHighlight onPress={()=> {tabPressed("Settings")}} style={styles.button}>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=> {tabPressed("Settings")}} style={styles.button}>
                     <>
                     <Icon name="gear" size={30} color="black" />
                     <Text>Settings</Text>
                     </>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </View>
 
         </SafeAreaView>

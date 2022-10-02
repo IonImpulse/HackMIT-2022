@@ -14,16 +14,17 @@ import HomeWithTabs from './components/HomeWithTabs';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+export default function App({navigation}) {
   return (
     <NavigationContainer >
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
-        <Stack.Screen name="Feed" component={Login} />
-        <Stack.Screen name="SubmitRequest" component={SubmitRequest} />
-        <Stack.Screen name="MyStuff" component={MyStuff} />
-        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Feed" component={HomeWithTabs} />
+        
+        {/* <Stack.Screen name="MyStuff" component={MyStuff} />
+        <Stack.Screen name="Settings" component={Settings} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

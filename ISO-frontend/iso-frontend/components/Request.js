@@ -7,7 +7,7 @@ const Request = (props) => {
                 <Text style={styles.title}>{props.title}</Text>
                 <Text>{props.location}</Text>
             </View>
-            <Text style={styles.content}>{props.children}</Text>
+            {/* <Text style={styles.content}>{props.children}</Text> */}
         </View>
     );
 }

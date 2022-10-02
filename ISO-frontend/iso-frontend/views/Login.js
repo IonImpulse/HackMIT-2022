@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, TextInput, Pressable, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Pressable, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
 import PhoneInput from "react-native-phone-number-input";
 import VerifyUser from '../components/VerifyUser';
 
@@ -48,11 +48,19 @@ const Login = (props) => {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <>
+            
+            
+            {/* <TouchableWithoutFeedback style={styles.bypassBox} onPress={() => console.log("pressed")}>
+            <Text style={styles.bypass}>Bypass</Text>
+        </TouchableWithoutFeedback> */}
+            
         {success && <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <VerifyUser />
         </View>}
         <View style={styles.container}>
             <View>
+                
                 <Text style={styles.title}>Sign up ✍️</Text>
                 <PhoneInput
                     withDarkTheme
@@ -75,14 +83,33 @@ const Login = (props) => {
                             : '#348feb'
                         },
                         styles.wrapperCustom]}
-                ><Text style={{color: 'white'}}>Submit</Text></Pressable>
+                    
+                >
+
+                    <Text style={{color: 'white'}}>Submit</Text></Pressable>
+                    <View style={styles.bypassBox}>
+            <Button style={styles.bypass} onPress={() => props.navigation.navigate('Feed')} title="Tap to bypass login"/>
+            </View>
             </View>
         </View>
+        
+
+        </>
         </TouchableWithoutFeedback>
     );
 }
 
 const styles = StyleSheet.create({
+    bypassBox:{
+
+    },
+    bypass: {
+        // position: "absolute",
+        // top: 30,
+        // width: "100%",
+        // height: "5%",
+        // backgroundColor: "red",
+    },
     title: {
         fontSize: 30,
         marginLeft: 10,
