@@ -35,10 +35,6 @@ const Feed = (props) => {
     
                     )
                 }
-
-                
-
-
                 </ScrollView>
         </SafeAreaView>
 

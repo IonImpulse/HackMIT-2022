@@ -81,7 +81,13 @@ impl User {
         let json: serde_json::Value = serde_json::from_str(&text).unwrap();
 
         println!("{:?}", json);
-        let code = json["url"].as_str().unwrap();
+        let code = json["url"].as_str();
+
+        if code.is_none() {
+            return Err("Error getting verification status, please wait 10 minutes.".to_string());
+        }
+
+        let code = code.unwrap();
 
         let mut db = db_mut().await;
 
