@@ -13,7 +13,7 @@ const Splash = (props) => {
                 props.navigation.navigate('Feed');
             }
             else {
-                props.navigation.navigate('Login');
+                props.navigation.navigate('Signup');
             }
         }
         fn();

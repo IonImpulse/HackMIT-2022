@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Request from '../components/Request';
 import Header from '../components/Header';
 
-const Feed = ({navigation}) => {
+const Feed = (props) => {
 
     const [data, setData] = useState([]);
     const getData = async () => {
@@ -31,7 +31,7 @@ const Feed = ({navigation}) => {
         {data != null &&
         data.map((req) => 
             // <Text>{req.title}</Text>
-            <Request key={Math.floor(Math.random() * 100000)}navigation={navigation} data={req} type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
+            <Request key={Math.floor(Math.random() * 100000)}navigation={props.navigation} user={props.user} data={req} type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
 
             )
         }

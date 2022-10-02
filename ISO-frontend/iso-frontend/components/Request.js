@@ -4,8 +4,9 @@ import { useState } from 'react';
 const isoColor = "#A2D2FF";
 const osiColor = "#CDB4DB";
 import { useNavigation } from '@react-navigation/native';
-const Request = ({data, title, location_string, type, tags}) => {
-  const navigation = useNavigation(); 
+
+const Request = ({ user, data, title, location_string, type, tags}) => {
+  const navigation = useNavigation();
   const claimPressed = (text) => {
     Alert.alert(
       "Claim " + text + "?",
@@ -16,7 +17,22 @@ const Request = ({data, title, location_string, type, tags}) => {
           onPress: () => console.log("Cancel claim"),
           style: "cancel"
         },
-        { text: "OK", onPress: () => console.log("You have claimed this") }
+        {
+          text: "OK", onPress: async () => {
+            const response = await fetch('https://isoapp.dev/api/v1/posts/claim', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({user: user, post_uuid: data.uuid})
+            });
+          }
+        }
       ]
     );
 
@@ -24,24 +40,24 @@ const Request = ({data, title, location_string, type, tags}) => {
   }
 
 
-    return (
-        <View style={[styles.container, (type=="OSI") && styles.osiBackgroundColor]}>
-          <View style={styles.body}>
-          <View style={styles.circle}>
-            <Text style={[styles.circleText, (type=="OSI") && styles.osiTextColor]}>{type}</Text>
+  return (
+    <View style={[styles.container, (type == "OSI") && styles.osiBackgroundColor]}>
+      <View style={styles.body}>
+        <View style={styles.circle}>
+          <Text style={[styles.circleText, (type == "OSI") && styles.osiTextColor]}>{type}</Text>
+        </View>
+
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.title}>{title.toLowerCase()}</Text>
+            <Text >location: {location_string.toLowerCase()}</Text>
           </View>
 
-          <View style={styles.header}>
-            <View>
-              <Text style={styles.title}>{title.toLowerCase()}</Text>
-              <Text >location: {location_string.toLowerCase()}</Text>
-            </View>
-            
-          </View>
-          
-          <View>
+        </View>
+
+        <View>
           <View style={styles.tags}>
-          <View style={[styles.tagBox, (type=="OSI") && styles.osiBackgroundColor]}>
+            <View style={[styles.tagBox, (type == "OSI") && styles.osiBackgroundColor]}>
               <Text style={styles.tag}>{tags[0].toLowerCase()}</Text>
             </View>
             {/* {tags.map((tag) =>
@@ -49,23 +65,23 @@ const Request = ({data, title, location_string, type, tags}) => {
               <Text style={styles.tag}>{tag.toLowerCase()}</Text>
             </View>
             )} */}
-            
-            </View>
-            <TouchableOpacity onPress={() => claimPressed(type + " " + title)} style={[styles.tagBox, styles.claimBox]}>
-              <Text style={[ styles.tag, styles.claimText]}>claim</Text>
-            </TouchableOpacity>
-
-            
 
           </View>
-          
+          <TouchableOpacity onPress={() => claimPressed(type + " " + title)} style={[styles.tagBox, styles.claimBox]}>
+            <Text style={[styles.tag, styles.claimText]}>claim</Text>
+          </TouchableOpacity>
 
-          </View>
-          
-            
+
 
         </View>
-    );
+
+
+      </View>
+
+
+
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -74,7 +90,7 @@ const styles = StyleSheet.create({
   },
   osiTextColor: {
     color: osiColor,
-    
+
 
   },
   claimText: {
@@ -82,12 +98,12 @@ const styles = StyleSheet.create({
   },
   claimBox: {
     position: "absolute",
-    right:0,
+    right: 0,
     borderColor: "black",
     backgroundColor: "black",
     bottom: -5,
     height: 30,
-    
+
 
   },
   body: {
@@ -103,7 +119,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
 
   },
-  circleText:{
+  circleText: {
     fontSize: 20,
     fontWeight: "bold",
     color: isoColor,
@@ -113,9 +129,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     flexDirection: 'row',
-    top:-5,
+    top: -5,
     justifyContent: "space-between",
-    
+
   },
   tagBox: {
     borderRadius: 5,
@@ -125,8 +141,8 @@ const styles = StyleSheet.create({
     backgroundColor: isoColor,
     marginRight: 5,
     marginTop: 2,
-    
-    
+
+
     borderWidth: 1.5,
     borderColor: "white",
 
