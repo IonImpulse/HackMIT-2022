@@ -1,9 +1,28 @@
 import React from 'react'
-import { useState } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
+
 import Header from '../components/Header';
+import User from '../contexts/User';
+
 const MyStuff = () => {
-    
+    const userContext = useContext(User);
+    const userObject = userContext.user;
+    const [posts, setPosts] = useState(posts);
+
+    useEffect(() => {
+        const postIds = userObject[posts];
+        let postList = [];
+
+        async function fn() {
+            for (let uid in postIds) {
+                const response = await fetch(`/api/v1/posts/single/${uid}`);
+                const json = await response.json();
+
+                postList.push(json.body)
+            }
+        }
+    }, [])
 
 
   return (
