@@ -69,7 +69,7 @@ impl Data {
         self.users.insert(user.uuid.clone(), user);
     }
 
-    pub async fn check_verification(&mut self, uuid: String, code: String) -> Result<(), String> {
+    pub async fn check_verification(&mut self, uuid: String, code: String) -> Result<User, String> {
         if self.users.contains_key(&uuid) {
             let mut user = self.users.get(&uuid).unwrap().clone();
 
@@ -78,8 +78,9 @@ impl Data {
             if user.is_err() {
                 return Err(user.err().unwrap());
             } else {
-                self.add_update_user(user.unwrap().clone());
-                return Ok(());
+                let user = user.unwrap();
+                self.add_update_user(user.clone());
+                return Ok(user);
             }
         } else {
             return Err("User not found".to_string());

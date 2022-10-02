@@ -137,8 +137,7 @@ impl User {
 
         println!("{:?}", json);
 
-        Err("Error verifying code".to_string())
-
+        Ok(self.clone())
     }
 
 
