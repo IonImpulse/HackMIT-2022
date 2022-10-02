@@ -68,9 +68,16 @@ const Request = ({ data, title, location_string, type, tags}) => {
 
         <View>
           <View style={styles.tags}>
+            {(tags.length > 0) &&
             <View style={[styles.tagBox, (type == "OSI") && styles.osiBackgroundColor]}>
-              <Text style={styles.tag}>{tags[0].toLowerCase()}</Text>
-            </View>
+              
+            <Text style={styles.tag}>{tags[0].toLowerCase()}</Text>
+           
+          
+         </View>
+
+            }
+            
             {/* {tags.map((tag) =>
             <View style={[styles.tagBox, (type=="OSI") && styles.osiBackgroundColor]}>
               <Text style={styles.tag}>{tag.toLowerCase()}</Text>

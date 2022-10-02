@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingTop: 10,
+        paddingTop: 6,
         flexDirection: "column",
         paddingBottom: 6,
     },
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         color: "white",
         borderRadius: 10,
-        paddingTop: 10,
+        paddingTop: 6,
         paddingBottom: 6,
     },
 });
