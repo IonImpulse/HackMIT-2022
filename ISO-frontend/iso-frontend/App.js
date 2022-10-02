@@ -14,7 +14,7 @@ import HomeWithTabs from './components/HomeWithTabs';
 
 const Stack = createNativeStackNavigator();
 
-export default function App({navigation}) {
+export default function App() {
   return (
     <NavigationContainer >
       <Stack.Navigator screenOptions={{
