@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, StyleSheet, TextInput, Modal, Pressable,
+import { Button, Text, View, StyleSheet, TextInput, Modal, Pressable,
     TouchableWithoutFeedback, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -111,6 +111,7 @@ const Signup = (props) => {
                             styles.wrapperCustom]}
                     ><Text style={{color: 'white'}}>Submit</Text></Pressable>
                 </View>
+                <Button title="Bypass login for debugging" onPress={()=>props.navigation.navigate('Feed')}/>
             </View>
         </View>
     );
