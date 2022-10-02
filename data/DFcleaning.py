@@ -94,20 +94,19 @@ def clean_tweet(text):
     
     return text
 
-def preprocess_df(filename = "ISO_data", df = None, text_name = "Subject"):
+def preprocess_df(filename = None, df = None, text_name = "Subject"):
     """
     Preprocessing for dataframe. Adds new columns to dataframe. Returns new dataframe. 
     text_name and category_name are names of columns in dataframe
         INPUTS: filename (str) or df (pandas dataframe), text_name (str), category_name (str)
         RETURNS: cleaned (pandas dataframe)
     """
-    if df == None:
+    if filename:
         df = pd.read_pickle(f"{filename}.pkl")
 
-    print(df.head(4))
-    df["cleaned"] = df[text_name].apply(lambda text: clean_tweet(text))
+    #df["cleaned"] = #df[text_name].apply(lambda text: clean_tweet(text))
     # first remove contractions
-    df["no_contract"] = df["cleaned_tweet"].apply(lambda text: [contractions.fix(word) for word in text.split()])
+    df["no_contract"] = df["Subject"].apply(lambda text: [contractions.fix(word) for word in text.split()])
 
     # turn list of contractionless words back into a singular string
     df['msg_str'] = [' '.join(map(str,list_)) for list_ in df['no_contract']]
@@ -125,10 +124,10 @@ def preprocess_df(filename = "ISO_data", df = None, text_name = "Subject"):
 
     # make everything lowercase
     df['lower'] = df['manual_correct'].apply(lambda list_: [word.lower() for word in list_])
-
+    df['lower'] = df["lower"].apply(lambda list_: [word for word in list_ if (word != 'utf')])
     # get rid of punctuation (REPLACED)
-    #punc = string.punctuation
-    #df['no_punc'] = df['lower'].apply(lambda list_: [word for word in list_ if word not in punc])
+    punc = string.punctuation
+    df['no_punc'] = df['lower'].apply(lambda list_: [word for word in list_ if word not in punc])
 
     # spell checking (we're not doing this rn)
     # from spellchecker import SpellChecker # microsoft text blob
@@ -137,7 +136,7 @@ def preprocess_df(filename = "ISO_data", df = None, text_name = "Subject"):
     # get rid of stop words
 
     stop_words = set(stopwords.words('english'))
-    df['stopwords_removed'] = df['lower'].apply(lambda list_: [word for word in list_ if word not in stop_words])
+    df['stopwords_removed'] = df['no_punc'].apply(lambda list_: [word for word in list_ if word not in stop_words])
     
     # lemmatization
     df['pos_tags'] = df['stopwords_removed'].apply(nltk.tag.pos_tag)
@@ -147,6 +146,7 @@ def preprocess_df(filename = "ISO_data", df = None, text_name = "Subject"):
     wnl = WordNetLemmatizer()
 
     df['lemmatized'] = df['wordnet_pos'].apply(lambda x: [wnl.lemmatize(word, tag) for word, tag in x])
+
 
 
     return df
@@ -279,7 +279,7 @@ corrected.to_csv("ISO_data.csv")
 def iso_type(text):
     """input text of subject line"""
     try:
-        if ("ISO" in text) and ("anti" not in text) and ("OSI" not in text) and ("reverse" not in text):
+        if ("iso" in text.lower()) and ("anti" not in text.lower()) and ("osi" not in text.lower()) and ("reverse" not in text.lower()):
             return "ISO"
         else:
             return "OSI"
@@ -297,6 +297,7 @@ def is_reply(text):
 
 
 df = pd.read_pickle('ISO_data.pkl')
+
 df["ISO_type"] = df["Subject"].apply(iso_type)
 # df["ISO_type"].value_counts()
 
@@ -310,6 +311,10 @@ def is_mmed(subject_line):
         return False
     else: # make this more sophisticated later, i.e., the response must have some form of mm
         return True
+        # if "mm" in str(response_row["Body"]).lower():
+        #     return True
+        # else:
+        #     return False
 
 df["is_reply"] = df["Subject"].apply(is_reply)
 
@@ -317,6 +322,9 @@ df["mm"] = df["Subject"].apply(is_mmed)
 
 df_og = df.loc[df["is_reply"] == False]
     
+df2 = preprocess_df(df = df) # df with wayyyyy too much information
 
+df = df.drop(columns = ['no_contract', 'msg_str', 'correct_rest',
+       'no_punc', 'tokenized', 'manual_correct'])
 
 
