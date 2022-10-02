@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, ScrollView, SafeAreaView, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
 import Request from '../components/Request';
+import Header from '../components/Header';
 
 const Feed = (props) => {
     const tags = ["Food", "Furniture"];
@@ -24,11 +25,9 @@ const Feed = (props) => {
 
 
     return (
-        <View style={styles.bigContainer}>
-            <Text style={styles.titleText}>My Feed</Text>
-
-            <View style={{flex: 1}}>
-                <ScrollView style={styles.container}>
+        <SafeAreaView style={styles.wrapper}>
+        <Header title="my feed"/>
+        <ScrollView style={styles.container}>
                 {data != null &&
                 data.map((req) => 
                     // <Text>{req.title}</Text>
@@ -41,12 +40,38 @@ const Feed = (props) => {
 
 
                 </ScrollView>
-            </View>
-        </View>
+        </SafeAreaView>
+
     );
 }
 
+        // <View style={styles.bigContainer}>
+        //     <Header />
+        //     <Text style={styles.titleText}>My Feed</Text>
+
+        //     <View style={{flex: 1}}>
+        //         <ScrollView style={styles.container}>
+        //         {data != null &&
+        //         data.map((req) => 
+        //             // <Text>{req.title}</Text>
+        //             <Request type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
+    
+        //             )
+        //         }
+
+                
+
+
+        //         </ScrollView>
+        //     </View>
+        // </View>
+
 const styles = StyleSheet.create({
+    wrapper:{
+        display: "flex",
+        flex: 1,
+
+    },
     container: {
         display: 'flex',
         height: '100%',
