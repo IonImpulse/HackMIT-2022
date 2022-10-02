@@ -19,7 +19,6 @@ const Signup = (props) => {
 
     async function submitData() {
         try {
-
             const countryCode = phoneInput.current.getCountryCode();
             console.log(phoneInput);
 
@@ -76,7 +75,8 @@ const Signup = (props) => {
             }
             setModal(false); 
             console.log(userObject);
-            
+            props.setUser(userObject);
+
             props.navigation.navigate('Feed');
         }
         fn();

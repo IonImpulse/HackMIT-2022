@@ -3,23 +3,23 @@ import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Splash = (props) => {
-    const [userObject, setUserObject] = useState({}); 
-    
     // Attempt to fetch user object 
     useEffect(() => {
         async function fn() {
-            try {
-                let obj = await AsyncStorage.getItem('@user_object')
-            } catch(e){}
-            if (obj != null) setUserObject(JSON.parse(obj));
+            let obj = await AsyncStorage.getItem('@user_object')
+            console.log(obj);
+            if (obj != null) {
+                props.setUser(JSON.parse(obj));
+                props.navigation.navigate('Feed');
+            }
             else {
-                props.navigation.navigate('Login')
+                props.navigation.navigate('Login');
             }
         }
     }, [])
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Loading...</Text>
         </View>
     );
@@ -30,6 +30,10 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'lightgray'
+        backgroundColor: 'lightgray',
+        width: '100%',
+        height: '100%'
     }
 })
+
+export default Splash;
