@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, StyleSheet, TextInput, Modal, Pressable,
+import { Button, Text, View, StyleSheet, TextInput, Modal, Pressable,
     TouchableWithoutFeedback, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import PhoneInput from "react-native-phone-number-input";
 import VerifyUser from '../components/VerifyUser';
 
-const Login = (props) => {
+const Signup = (props) => {
     const [phoneNumber, changePhoneNumber] = useState("");
     const [country, changeCountry] = useState("");
     const [modal, setModal] = useState(false);
@@ -111,6 +111,7 @@ const Login = (props) => {
                             styles.wrapperCustom]}
                     ><Text style={{color: 'white'}}>Submit</Text></Pressable>
                 </View>
+                <Button title="Bypass login for debugging" onPress={()=>props.navigation.navigate('Feed')}/>
             </View>
         </View>
     );
@@ -162,4 +163,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Login;
+export default Signup;
