@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import RequestDetails from '../views/RequestDetails';
 import Request from './Request';
 
-const HomeWithTabs = (props) => {
+const HomeWithTabs = () => {
     const [tab, setTab] = useState("Home");
     const tabPressed = (tab) => {
         setTab(tab);
@@ -18,7 +18,7 @@ const HomeWithTabs = (props) => {
 
     return (
         <SafeAreaView style={styles.biggerContainer}>
-            {tab == "Home" && <Feed {...props} />}
+            {tab == "Home" && <Feed />}
             {tab == "Post" && <SubmitRequest />}
             {tab == "My Stuff" && <MyStuff />}
             {/* {tab == "Settings" && <RequestDetails><Request type={"ISO"} title={"Testing"} location_string={"Location"} tags={["Food"]}></Request></RequestDetails>} */}
