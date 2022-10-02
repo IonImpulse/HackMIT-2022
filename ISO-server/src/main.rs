@@ -97,6 +97,14 @@ async fn async_main() -> std::io::Result<()> {
     *lock = data;
     drop(lock);
 
+    spawn(async move {
+        let mut interval = time::interval(Duration::from_secs(60));
+        loop {
+            interval.tick().await;
+            let _ = save_database().await;
+        }
+    });
+
     info!("Database loaded.");
 
     if cfg!(debug_assertions) {
