@@ -19,7 +19,8 @@ const Signup = (props) => {
 
     async function submitData() {
         try {
-            const countryCode = phoneInput.getCountryCode();
+            const countryCode = phoneInput.current.getCountryCode();
+            console.log(phoneInput);
 
             const response = await fetch('https://isoapp.dev/api/v1/users/startVerification', {
                 headers: {
