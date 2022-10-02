@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TextInput, Pressable, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import PhoneInput from "react-native-phone-number-input";
+import VerifyUser from '../components/VerifyUser';
+
+const Modal = () => {
+    return (
+        <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <VerifyUser />
+        </View>
+    );
+}
 
 const Login = (props) => {
     const [phoneNumber, changePhoneNumber] = useState("");
@@ -8,7 +17,7 @@ const Login = (props) => {
     const [success, setSuccess] = useState(false);
 
     async function submitData() {
-        try {
+        /*try {
             console.log(phoneNumber);
 
             const response = await fetch('https://isoapp.dev/api/v1/users/startVerification', {
@@ -25,16 +34,23 @@ const Login = (props) => {
             });
 
             const test = await response.text();
+            setSuccess(true);
 
             console.log(test);
 
         } catch(error) {
             alert("Network failure!");
         }
+        */
+       setSuccess(true);
+       console.log(success);
     } 
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        {success && <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <VerifyUser />
+        </View>}
         <View style={styles.container}>
             <View>
                 <Text style={styles.title}>Sign up ✍️</Text>
