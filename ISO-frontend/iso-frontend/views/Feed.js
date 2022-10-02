@@ -34,7 +34,6 @@ const Feed = (props) => {
         data.map((req) => 
             // <Text>{req.title}</Text>
             <Request key={Math.floor(Math.random() * 100000)}navigation={props.navigation} user={props.user} data={req} type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
-
             )
         }
         </ScrollView>
