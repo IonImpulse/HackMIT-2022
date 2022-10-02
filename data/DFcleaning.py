@@ -232,13 +232,15 @@ def polarity(text):
     """
     return TextBlob(text).sentiment.polarity
 
+
+
 # data frame cleaning
 
 
          
 
 # INITIAL COLUMN FIX TO PRODUCE 'ISO_data.csv' (later converted to 'ISO_data.pkl')
-"""
+
 # dataframes
 
 
@@ -273,7 +275,7 @@ corrected = corrected[corrected["Subject"] != corrected["Subject"].isnull] # get
 corrected = corrected.drop(columns = ["Attachemnt"])
 corrected.to_csv("ISO_data.csv")
 
-"""
+
 
 #ISO/OSI labeling
 def iso_type(text):

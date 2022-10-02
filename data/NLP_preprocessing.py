@@ -247,4 +247,5 @@ def polarity(text):
 
 
 
-
+df = pd.read_pickle('text.pkl')
+df = preprocess_df(df)
