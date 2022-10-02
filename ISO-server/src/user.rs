@@ -80,6 +80,7 @@ impl User {
         // parse as json
         let json: serde_json::Value = serde_json::from_str(&text).unwrap();
 
+        println!("{:?}", json);
         let code = json["url"].as_str().unwrap();
 
         let mut db = db_mut().await;
