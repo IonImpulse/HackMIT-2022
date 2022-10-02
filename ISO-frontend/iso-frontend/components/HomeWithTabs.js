@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, TextInput,ScrollView, Keyboard } from 'react-native';
 import SubmitRequest from '../views/SubmitRequest';
-import Login from '../views/Login'
 import Settings from '../views/Settings';
 import MyStuff from '../views/MyStuff';
 import Feed from '../views/Feed'
@@ -22,8 +21,8 @@ const HomeWithTabs = () => {
             {tab == "Home" && <Feed />}
             {tab == "Post" && <SubmitRequest/>}
             {tab == "My Stuff" && <MyStuff />}
-            {tab == "Settings" && <RequestDetails><Request type={"ISO"} title={"Testing"} location_string={"Location"} tags={["Food"]}></Request></RequestDetails>}
-            {/* {tab == "Settings" && <Settings />} */}
+            {/* {tab == "Settings" && <RequestDetails><Request type={"ISO"} title={"Testing"} location_string={"Location"} tags={["Food"]}></Request></RequestDetails>} */}
+            {tab == "Settings" && <Settings />}
             
             {/* End add component)*/}
 

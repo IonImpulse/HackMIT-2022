@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightblue',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: '30%'
+        borderRadius: 30,
     },
     input: {
         height: 50,
