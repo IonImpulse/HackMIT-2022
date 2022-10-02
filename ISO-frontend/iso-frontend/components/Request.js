@@ -32,8 +32,16 @@ const Request = ({ data, title, location_string, type, tags}) => {
                 credentials: 'same-origin',
                 redirect: 'follow',
                 referrerPolicy: 'no-referrer',
-                body: JSON.stringify({user: user, post_uuid: data.uuid})
+                body: JSON.stringify({user: userContext.user, post_uuid: data.uuid})
             });
+
+            let json = await response.json();
+            console.log(json);
+
+            if(json.success) {
+              Alert.alert("Claimed!");
+              navigation.navigate("Home");
+            }
           }
         }
       ]

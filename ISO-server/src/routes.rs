@@ -10,8 +10,9 @@ pub async fn get_post_page(
     index: web::Path<usize>,
 ) -> Result<HttpResponse, Error> {
     let data = db_clone().await;
+    let index = index.into_inner();
 
-    let page = data.get_feed_page(*index);
+    let page = data.get_feed_page(index);
 
     if page.is_err() {
         let json = json!({
@@ -20,14 +21,20 @@ pub async fn get_post_page(
 
         return Ok(HttpResponse::BadRequest().json(json));
     } else {
-        let index_to_return: Option<usize> = if *index + FEED_PAGE_SIZE < data.feed.len() {
-            Some(*index + FEED_PAGE_SIZE)
-        } else {
-            None
-        };
+        let mut index_offset = 0;
+        let mut pages = Vec::new();
+
+        while pages.len() < FEED_PAGE_SIZE && index + index_offset < data.feed.len() {
+            if data.feed[index + index_offset].time_accepted.is_none() {
+                pages.push(data.feed[index + index_offset].clone());
+            }
+
+            index_offset += 1;
+        }
+        
         let json = json!({
-            "results": page.unwrap(),
-            "next": index_to_return,
+            "results": pages,
+            "next": index + index_offset,
         });
 
         return Ok(HttpResponse::Ok().json(json));
