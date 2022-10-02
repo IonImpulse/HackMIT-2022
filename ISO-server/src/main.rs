@@ -42,7 +42,7 @@ lazy_static! {
 
 // Debug vs release address
 const ADDRESS: &str = "127.0.0.1:8080";
-const ADDRESS_HTTPS: &str = "0.0.0.0:8443";
+const ADDRESS_HTTPS: &str = "0.0.0.0:443";
 
 const DB_NAME: &str = "db.json";
 const LOGGER_STR: &str = "\nMAKE Log @ %t\nIP: %a (%{r}a)\nRequest: \"%r\"\nAgent: \"%{Referer}i\" \"%{User-Agent}i\"\nResponse: STATUS %s for %b bytes in %D ms";
