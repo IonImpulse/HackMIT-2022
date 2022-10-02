@@ -36,10 +36,6 @@ const Feed = (props) => {
     
                     )
                 }
-
-                
-
-
                 </ScrollView>
             </View>
         </View>
