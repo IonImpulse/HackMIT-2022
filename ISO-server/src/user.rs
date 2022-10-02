@@ -198,4 +198,10 @@ impl User {
 
         self
     }
+
+    pub fn add_claimed_post(&mut self, post: String) -> &mut Self {
+        self.posts.push(post);
+
+        self
+    }
 }

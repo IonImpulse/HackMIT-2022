@@ -124,8 +124,8 @@ impl Data {
     pub fn claim_post(&mut self, uuid: String, user: User) -> Result<(), String> {
        // Auth with user uuid and token
          if self.users.contains_key(&user.uuid) {
-              let user = self.users.get(&user.uuid).unwrap();
-              if user.get_token() != user.get_token() {
+              let mut db_user = self.users.get(&user.uuid).unwrap().clone();
+              if db_user.get_token() != user.get_token() {
                 return Err("Invalid token".to_string());
               } else {
                 // Get post
@@ -135,6 +135,11 @@ impl Data {
                 } else {
                     let mut post = post.unwrap();
                     post.claim(user.uuid.clone());
+
+                    db_user.add_claimed_post(post.uuid.clone());
+
+                    self.users.insert(user.uuid, db_user.clone());
+
                     let pos = self.feed.iter().position(|x| x.uuid == uuid);
                     self.feed[pos.unwrap()] = post;
                     return Ok(());
