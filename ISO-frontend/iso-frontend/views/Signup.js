@@ -99,6 +99,9 @@ const Signup = (props) => {
                     <PhoneInput
                         ref={phoneInput}
                         withDarkTheme
+                        withShadow
+                        autoFocus
+                        defaultCode="US"
                         onChangeText={(text) => {
                         changePhoneNumber(text);
                         }}

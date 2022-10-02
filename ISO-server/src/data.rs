@@ -120,6 +120,28 @@ impl Data {
 
         Err("Post not found".to_string())
     }
+
+    pub fn claim_post(&mut self, uuid: String, user: User) -> Result<(), String> {
+       // Auth with user uuid and token
+         if self.users.contains_key(&user.uuid) {
+              let user = self.users.get(&user.uuid).unwrap();
+              if user.get_token() != user.get_token() {
+                return Err("Invalid token".to_string());
+              } else {
+                // Get post
+                let post = self.get_post_by_uuid(&uuid);
+                if post.is_err() {
+                    return Err(post.err().unwrap());
+                } else {
+                    let mut post = post.unwrap();
+                    post.claim(user.uuid.clone());
+                    return Ok(());
+                }
+              }
+         } else {
+              return Err("User not found".to_string());
+         }
+    }
 }
 
 fn from_slice_lenient<'a, T: ::serde::Deserialize<'a>>(

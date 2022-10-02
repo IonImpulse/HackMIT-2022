@@ -13,6 +13,8 @@ Returns a page of posts from the feed. The index is the page number, starting at
 }
 ```
 
+## GET
+
 ### `GET` /api/v1/users/userInfo
 Accept a user's JSON object as request body and returns the user's information.
 ```js
@@ -35,3 +37,15 @@ Find an individual post by UUID
         
     },
 }
+```
+
+## POST
+
+### `POST` /api/v1/posts/claim
+Requires the following:
+```js
+{
+    user: User, // User object
+    post_uuid: "UUID-V4", // UUID of post to claim
+}
+```

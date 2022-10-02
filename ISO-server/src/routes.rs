@@ -176,3 +176,34 @@ pub async fn check_verification(
         return Ok(HttpResponse::BadRequest().json(json));
     }
 }
+
+#[derive(Default, Deserialize, Serialize, Clone, Debug)]
+pub struct ClaimPost {
+    pub user: User,
+    pub post_uuid: String,
+}
+
+#[post("/api/v1/posts/claim")]
+pub async fn claim_post(
+    data: web::Json<ClaimPost>,
+) -> Result<HttpResponse, Error> {
+    let data = data.into_inner();
+
+    let mut db = db_mut().await;
+
+    let result = db.claim_post(data.post_uuid, data.user);
+
+    if result.is_err() {
+        let json = json!({
+            "error": result.err().unwrap()
+        });
+
+        return Ok(HttpResponse::BadRequest().json(json));
+    } else {
+        let json = json!({
+            "results": "Post claimed successfully",
+        });
+
+        return Ok(HttpResponse::Ok().json(json));
+    }
+}
