@@ -40,7 +40,7 @@ const Request = ({ data, title, location_string, type, tags}) => {
 
             if(json.success) {
               Alert.alert("Claimed!");
-              navigation.navigate("Home");
+              // Rerender home
             }
           }
         }
