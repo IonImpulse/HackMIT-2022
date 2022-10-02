@@ -1,15 +1,18 @@
 import { Text, View, StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import User from '../contexts/User';
 
 const Splash = (props) => {
+    const userContext = useContext(User);
+
     // Attempt to fetch user object 
     useEffect(() => {
         async function fn() {
             let obj = await AsyncStorage.getItem('@user_object')
             console.log(obj);
             if (obj != null) {
-                props.setUser(JSON.parse(obj));
+                userContext.setUser(JSON.parse(obj));
                 props.navigation.navigate('Feed');
             }
             else {

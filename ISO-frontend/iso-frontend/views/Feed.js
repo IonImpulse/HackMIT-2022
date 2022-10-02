@@ -1,9 +1,11 @@
 import { Text, View, StyleSheet, ScrollView, SafeAreaView, FlatList } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import User from '../contexts/User';
 import Request from '../components/Request';
 import Header from '../components/Header';
 
 const Feed = (props) => {
+    const userContext = useContext(User);
 
     const [data, setData] = useState([]);
     const getData = async () => {

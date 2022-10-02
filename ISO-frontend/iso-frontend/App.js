@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
+import User from './contexts/User';
 import Splash from './views/Splash';
 import Signup from './views/Signup';
+import Feed from './views/Feed';
 import RequestDetails from './views/RequestDetails';
 
 import HomeWithTabs from './components/HomeWithTabs';
@@ -27,17 +29,19 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer >
-      <Stack.Navigator screenOptions={{
-        headerShown: false
-      }}>
-        <Stack.Screen name="Splash" component={(props) => <Splash {...props} user={user} setUser={setUser} />} /> 
-        <Stack.Screen name="Signup" component={(props) => <Signup {...props} user={user} setUser={setUser} />} /> 
-        <Stack.Screen name="Feed" component={(props) => <HomeWithTabs {...props} user={user} setUser={setUser} />} />
-        
-        <Stack.Screen name="RequestDetails" component={(props) => <RequestDetails {...props} user={user} setUser={setUser} />} />
-        
-      </Stack.Navigator>
-    </NavigationContainer>
+    <User.Provider value={{user, setUser}}>
+      <NavigationContainer >
+        <Stack.Navigator screenOptions={{
+          headerShown: false
+        }}>
+          <Stack.Screen name="Splash" component={Splash} />
+          <Stack.Screen name="Signup" component={Signup} /> 
+          <Stack.Screen name="Feed" component={Feed} />
+          
+          <Stack.Screen name="RequestDetails" component={RequestDetails} />
+          
+        </Stack.Navigator>
+      </NavigationContainer>
+    </User.Provider>
   );
 }

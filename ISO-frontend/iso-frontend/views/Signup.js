@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Button, Text, View, StyleSheet, TextInput, Modal, Pressable,
     TouchableWithoutFeedback, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import PhoneInput from "react-native-phone-number-input";
 import VerifyUser from '../components/VerifyUser';
+import User from '../contexts/User';
 
 const Signup = (props) => {
     const [phoneNumber, changePhoneNumber] = useState("");
@@ -14,6 +15,8 @@ const Signup = (props) => {
     const [secondSuccess, setSecondSuccess] = useState(false);
     const [uuid, setUuid] = useState("");
     const [userObject, setUserObject] = useState({});
+
+    const userContext = useContext(User);
 
     const phoneInput = useRef(null);
 
@@ -76,7 +79,7 @@ const Signup = (props) => {
             }
             setModal(false); 
             console.log(userObject);
-            props.setUser(userObject);
+            userContext.setUser(userObject);
 
             props.navigation.navigate('Feed');
         }
