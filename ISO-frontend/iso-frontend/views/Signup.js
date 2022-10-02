@@ -50,7 +50,8 @@ const Signup = (props) => {
     } 
 
     useEffect(() => {
-        async function fn() { 
+        async function fn() {
+            if(uuid === "") return;
             const response = await fetch('https://isoapp.dev/api/v1/users/checkVerification', {
                     headers: {
                         'Content-Type': 'application/json'
@@ -73,8 +74,10 @@ const Signup = (props) => {
             } catch {
                 console.log("Error saving user data to local storage");
             }
-             
-            console.log(results);
+            setModal(false); 
+            console.log(userObject);
+            props.setUser(userObject);
+
             props.navigation.navigate('Feed');
         }
         fn();
@@ -97,6 +100,9 @@ const Signup = (props) => {
                     <PhoneInput
                         ref={phoneInput}
                         withDarkTheme
+                        withShadow
+                        autoFocus
+                        defaultCode="US"
                         onChangeText={(text) => {
                         changePhoneNumber(text);
                         }}

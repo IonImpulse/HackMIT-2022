@@ -11,7 +11,7 @@ const POSSIBLE_CODE_CHARS: &'static [char] = &[
 ];
 
 /// User data
-#[derive(Default, Deserialize, Serialize, Clone)]
+#[derive(Default, Deserialize, Serialize, Clone, Debug)]
 pub struct User {
     pub uuid: String,
     // Used to authenticate user

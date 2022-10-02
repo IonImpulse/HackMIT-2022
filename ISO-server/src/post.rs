@@ -82,4 +82,13 @@ impl Post {
 
         post
     }
+
+    pub fn claim(&mut self, user_uuid: String) {
+        self.user_acceptor = Some(user_uuid);
+        self.state = PostState::Accepted;
+        self.time_accepted = Some(SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .expect("Time went backwards")
+        .as_secs());
+    }
 }

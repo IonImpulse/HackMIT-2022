@@ -8,7 +8,7 @@ const MyStuff = () => {
 
   return (
     <View style={styles.biggerContainer}>
-        <Header title="my stuff"/>
+        <Header title="My Stuff"/>
         <View style={styles.bigContainer}>
             
                 <View style={styles.container}>

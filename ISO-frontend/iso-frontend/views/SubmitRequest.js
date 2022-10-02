@@ -124,7 +124,7 @@ const SubmitRequest = (props) => {
 
     return (
         <SafeAreaView style={styles.biggerContainer} >
-            <Header title="submit a request"/>
+            <Header title="Post"/>
         <SafeAreaView style={styles.bigContainer}>
             <View style={styles.container}>
                 <Text style={styles.subtitleText}>tap to change type: </Text>

@@ -25,7 +25,7 @@ const Feed = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.wrapper}>
-        <Header title="my feed"/>
+        <Header title="Home"/>
         {data.length != 0 ?
         <ScrollView style={styles.container}>
         {data != null &&
