@@ -71,11 +71,22 @@ pub async fn new_post(
 
     let mut db = db_mut().await;
 
-    db.add_post(post.post_type, post.owner_uuid, post.time_type, post.tags).await;
-
+    let result = db.add_post(post.post_type, post.owner_uuid, post.time_type, post.tags).await;
     drop(db);
 
-    Ok(HttpResponse::Ok().finish())
+    if result.is_err() {
+        let json = json!({
+            "error": result.err().unwrap()
+        });
+
+        return Ok(HttpResponse::BadRequest().json(json));
+    } else {
+        let json = json!({
+            "results": "Post added successfully",
+        });
+
+        return Ok(HttpResponse::Ok().json(json));
+    }
 }
 
 #[derive(Default, Deserialize, Serialize, Clone)]
