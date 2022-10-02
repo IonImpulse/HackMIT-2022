@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import ImageStylePropTypes from 'deprecated-react-native-prop-types/DeprecatedImageStylePropTypes';
+import { useState, useEffect } from 'react';
 import { Text, View, TextInput, StyleSheet } from 'react-native';
 
-const VerifyUser = () => {
-    const [code, setCode] = useState('');    
+const VerifyUser = (props) => {
+    const [code, setCode] = useState(''); 
+
+    useEffect(() => {
+        if(code.length == 6) props.updateVerificationCode(code); 
+    }, [code])
 
     return (
-        <View>
-            <Text>Input the verification code</Text>
-            <TextInput 
+        <View style={styles.container}>
+            <Text style={styles.title}>Input the verification code</Text>
+            <TextInput letterSpacing={6}
                 keyboardType='numeric'
                 placeholder='code'
                 value={code}
@@ -21,10 +26,23 @@ const VerifyUser = () => {
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
+        height: '30%',
+        width: '80%',
+        backgroundColor: 'lightblue',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '30%'
     },
     input: {
         height: 50,
-        paddingLeft: 20,
+        marginTop: 20,
+        paddingHorizontal: 20,
+        backgroundColor: 'white',
+        borderRadius: '30%',
+        fontSize: 20
+    },
+    title: {
+        fontSize: 20,
     }
 })
 
