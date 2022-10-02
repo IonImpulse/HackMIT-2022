@@ -11,6 +11,8 @@ import { useFonts } from 'expo-font';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [user, setUser] = useState({});
+  
   // Font load async
   const [loaded] = useFonts({
     "Inter-Bold": require('./assets/fonts/Inter-Black.ttf'),
@@ -24,12 +26,12 @@ export default function App() {
     return null;
   }
 
-  const [user, setUser] = useState({});
   return (
     <NavigationContainer >
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
+        <Stack.Screen name="Splash" component={(props) => <Splash {...props} user={user} setUser={setUser} />} /> 
         <Stack.Screen name="Signup" component={(props) => <Signup {...props} user={user} setUser={setUser} />} /> 
         <Stack.Screen name="Feed" component={(props) => <HomeWithTabs {...props} user={user} setUser={setUser} />} />
         
