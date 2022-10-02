@@ -14,8 +14,8 @@ const Splash = (props) => {
             if (obj != null) setUserObject(JSON.parse(obj));
             else {
                 props.navigation.navigate('Login')
-            } 
-        } 
+            }
+        }
     }, [])
 
     return (

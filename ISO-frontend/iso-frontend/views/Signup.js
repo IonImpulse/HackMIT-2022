@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, StyleSheet, TextInput, Modal, Pressable,
     TouchableWithoutFeedback, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,8 +15,12 @@ const Login = (props) => {
     const [uuid, setUuid] = useState("");
     const [userObject, setUserObject] = useState({});
 
+    const phoneInput = useRef(null);
+
     async function submitData() {
         try {
+            const countryCode = phoneInput.getCountryCode();
+
             const response = await fetch('https://isoapp.dev/api/v1/users/startVerification', {
                 headers: {
                     'Content-Type': 'application/json'
@@ -27,7 +31,7 @@ const Login = (props) => {
                 credentials: 'same-origin',
                 redirect: 'follow',
                 referrerPolicy: 'no-referrer',
-                body: JSON.stringify({phone_number: phoneNumber, country: "US"})
+                body: JSON.stringify({phone_number: phoneNumber, country: countryCode})
             });
             
             // Get uuid from result
@@ -90,16 +94,11 @@ const Login = (props) => {
                 <View>
                     <Text style={styles.title}>Sign up ✍️</Text>
                     <PhoneInput
+                        ref={phoneInput}
                         withDarkTheme
                         onChangeText={(text) => {
                         changePhoneNumber(text);
                         }}
-                    />
-                    <TextInput
-                        style={styles.countryInput}
-                        placeholder='Enter your country name here'
-                        onChangeText={changeCountry}
-                        value={country}
                     />
                     <Pressable
                         onPress={submitData}
