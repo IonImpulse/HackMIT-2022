@@ -81,7 +81,7 @@ pub async fn get_individual_post(
     }
 }
 
-#[derive(Default, Deserialize, Serialize, Clone)]
+#[derive(Default, Deserialize, Serialize, Clone, Debug)]
 pub struct NewPost {
     title: String, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>, location_string: String,
 }
@@ -112,7 +112,7 @@ pub async fn new_post(
     }
 }
 
-#[derive(Default, Deserialize, Serialize, Clone)]
+#[derive(Default, Deserialize, Serialize, Clone, Debug)]
 pub struct VerifyJSON {
     pub phone_number: String,
     pub country: String,
@@ -124,6 +124,8 @@ pub async fn start_verification(
 ) -> Result<HttpResponse, Error> {
 
     let data = data.into_inner();
+
+    info!("Starting verification for {:?}", data);
 
     let result = User::start_verification(data.phone_number, data.country).await;
 
@@ -142,7 +144,7 @@ pub async fn start_verification(
     }
 }
 
-#[derive(Default, Deserialize, Serialize, Clone)]
+#[derive(Default, Deserialize, Serialize, Clone, Debug)]
 pub struct VerifyCodeJSON {
     pub uuid: String,
     pub code: String,
@@ -153,6 +155,8 @@ pub async fn check_verification(
 ) -> Result<HttpResponse, Error> {
 
     let data = data.into_inner();
+
+    info!("Starting verification for {:?}", data);
 
     let mut db = db_mut().await;
 

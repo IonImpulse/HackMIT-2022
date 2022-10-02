@@ -4,13 +4,13 @@ use phonenumber::country::Id::SY;
 use ::serde::{Deserialize, Serialize};
 
 
-#[derive(Default, Deserialize, Serialize, Clone)]
+#[derive(Default, Deserialize, Serialize, Clone, Debug)]
 pub enum PostType {
     #[default] ISO,
     OSI,
 }
 
-#[derive(Default, Deserialize, Serialize, Clone)]
+#[derive(Default, Deserialize, Serialize, Clone, Debug)]
 pub enum PostState {
     #[default] Draft,
     Posted,
@@ -18,7 +18,7 @@ pub enum PostState {
     Expired,
 }
 
-#[derive(Default, Deserialize, Serialize, Clone)]
+#[derive(Default, Deserialize, Serialize, Clone, Debug)]
 pub enum TimeType {
     ServiceNow,
     ServiceFuture,
@@ -26,7 +26,7 @@ pub enum TimeType {
     ItemLoan,
 }
 
-#[derive(Default, Deserialize, Serialize, Clone)]
+#[derive(Default, Deserialize, Serialize, Clone, Debug)]
 pub struct Post {
     pub uuid: String,
     pub title: String,
