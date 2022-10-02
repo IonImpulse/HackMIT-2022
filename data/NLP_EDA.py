@@ -6,13 +6,15 @@ Exploratory Data Analysis and plots on language and popularity distribution of I
 """
 
 from turtle import color
+from sklearn import isotonic
 from sklearn.manifold import trustworthiness
-from NLP_preprocessing import *
+#from NLP_preprocessing import *
 from matplotlib import pyplot as plt
 import plotly.express as px
 import ast
 import math
 import numpy as np
+import pandas as pd
 
 
 # df = pd.read_csv("RVW_EDA.csv")
@@ -20,7 +22,7 @@ import numpy as np
 # df2 = pd.read_csv("RVW_FULL.csv")
 
 
-def view_hist(df, x_axis, nbins = 200, color = "root_username", log_x = False, log_y = False):
+def view_hist(df, x_axis, nbins = 200, color = "ISO_type", log_x = False, log_y = False):
     """
     General histogram generating function for roe v. wade data. Can choose dataframe and name of column that creates the x_axis.
     NOTE: do not set log_x to True, it doesn't work with this function.
@@ -28,7 +30,7 @@ def view_hist(df, x_axis, nbins = 200, color = "root_username", log_x = False, l
                 colors of overlaying histogram), log_x (bool, make x-axis log), log_y (bool, make y-axis log).
         RETURNS: None
     """
-
+    df = df.loc[df["Date"] != "1970-01-01 00:00:00"] #drop weird outlier
     fig = px.histogram(df, x=x_axis, color=color, marginal="violin", # can be `box`, `violin`
                          hover_data=df.columns, nbins = nbins, log_y = log_y, log_x=log_x)
     fig.update_layout(barmode='overlay')
@@ -52,6 +54,7 @@ def plot_top_stopwords(df, num = 15, column = "lower"):
     for text_L in text_lists:
         text += text_L
    
+    df["lower"]
 
     stop_dic = {}
 
@@ -66,6 +69,7 @@ def plot_top_stopwords(df, num = 15, column = "lower"):
     print(top)
     #unzip 'top'
     x, y = zip(*top)
+    
     plt.figure(figsize=(num,num))
     plt.title(f"{num} Most Common Stopwords")
     plt.bar(x,y)
@@ -78,25 +82,7 @@ def exclude(word):
     the word is in any of the exclude_these.
     
     """
-    exclude_these = ['abortion','women','right','people','life','states','rights',"scotus",'wade',
- 'v',
- 'roevwade',
- 'get',
- 'court',
- 'state',
- 'would',
- 'us',
- 'supreme',
- 'overturned',
- 'one',
- 'decision',
- 'want',
- 'today',
- 'need',
- 'like',
- 'care',
- 'know',
- 'going'] # 20 most common words from both camps
+    exclude_these = ['iso', 'anti', 'reverse', 'OSI', '3', 'c', 'black', 'bar', 'like', 'pm', 'opening', 'air'] # 20 most common words from both camps
 
 
     for word_ in exclude_these:
@@ -105,24 +91,27 @@ def exclude(word):
     
     return False
 
-def plot_top_nonstopwords(df, side = "Both", num = 20, title = "None",label_column = "label", excludeTop = True, column_name = "final_cleaned", is_pickle = True):
+def plot_top_nonstopwords(df, title, type_ = "OSI", num = 20,label_column = "ISO_type", excludeTop = True, column_name = "lower", is_pickle = True):
     """
     Plots num most common stop words in histogram for side's tweets (NARAL or march for life), if excludeTop, the excludes 
     the top 10 most common words from both camps.
-        INPUTS: df (pandas dataframe that contains column of "root" that contains), side (str, either "Both", "NARAL", or "March_for_life"),
+        INPUTS: df (pandas dataframe that contains column of "root" that contains), side (str, either "Both", "OSI", or "ISO"),
             num (int, number of top non stopwords that are included), label_column (str, the column name that contains labels) excludeTop (bool, whether or not to call exclude 
             function/exclude certain words), column_name (name of column that contains list of words), is_pickle (bool)
         RETURNS: list of num top non-stopwards
     """
+    
 
     from nltk.corpus import stopwords
     stopwords = set(stopwords.words('english'))
 
-    if side == "Both":
+   #title = f"Top 20 Non-stopwords for {type_}"
+
+    if type_ == "Both":
         print("remain")
         df_ = df
     else:
-        df_ = df.loc[df[label_column] == side]
+        df_ = df.loc[df[label_column] == type_]
 
     #print(df)
     text_lists = list(df_[f"{column_name}"])
@@ -141,23 +130,29 @@ def plot_top_nonstopwords(df, side = "Both", num = 20, title = "None",label_colu
     for word in text:
         if word not in stopwords:
             if excludeTop:
-                if exclude(word):
-                    continue
-
-            if word in stop_dic:
-                stop_dic[word] += 1 
+                if not exclude(word):
+            
+                    if word in stop_dic:
+                        stop_dic[word] += 1 
+                    else:
+                        stop_dic[word] = 1 
             else:
-                stop_dic[word] = 1 
+                if word in stop_dic:
+                    stop_dic[word] += 1 
+                else:
+                    stop_dic[word] = 1 
     
-    #print(stop_dic)
     
-    top=sorted(stop_dic.items(), key=lambda x:x[1],reverse=True)[:num]
+    top=sorted(stop_dic.items(), key=lambda x:x[1], reverse=True)[:num]
 
     #unzip 'top'
     plt.rcParams.update({'font.size':7})
     x,y = zip(*top)
+    tot = sum(y)
+    y = list(map (lambda x: (x/tot), y))
     plt.figure(figsize=(num, num))
     plt.bar(x,y)
+    plt.ylabel("Frequency", fontsize = 12)
     plt.title(title, fontsize = 15)
     plt.show()
 
@@ -302,7 +297,22 @@ def balance_by_del(df, minority = 1):
     df = df[~df.index.isin(drop_indices)]
     return df
 
-#df = pd.read_pickle("classification-data/FULL_BOTH_TWEETS_NODUP_FOLLOWINGINFO.pkl")
-df2 = pd.read_pickle("classification-data/TWEETS-datasets/FULL_BOTH_TWEETS.pkl")
-#df2 = df2[df2["retweets+likes"] < 1000]
-#df2 = balance_by_del(df2)
+def display_balance(df, title = "Total vs. Fulfilled ISOs/OSIs"):
+    df_ = df.loc[df["is_reply"] == False]
+
+    mm, no_mm = df_["mm"].value_counts()[1], df_["mm"].value_counts()[0]
+
+    D = {"Total ISOs/OSIs" : no_mm+mm, "Fulfilled ISOs/OSIs" : mm}
+    plt.bar(*zip(*D.items()), color=['tab:blue', 'tab:orange'])
+    plt.ylabel("Amount")
+    plt.title(title)
+    plt.show()
+
+    # iso = df_.loc[df["ISO_type"] == "ISO"]
+    # osi = df_.loc[df["ISO_type"] == "OSI"]
+
+    # iso_mm = iso["mm"].value_counts()[0]
+
+
+df = pd.read_pickle("ISO_data_processed.pkl")
+

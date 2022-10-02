@@ -32,7 +32,8 @@ pub struct Post {
     pub title: String,
     pub iso_or_osi: PostType,
     pub state: PostState,
-
+    pub location_string: String,
+    
     pub time_posted: u64,
     pub time_expires: u64,
     pub time_accepted: Option<u64>,
@@ -53,7 +54,7 @@ impl Post {
         self.user_owner.clone()
     }
 
-    pub fn new(title: String, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>) -> Post {
+    pub fn new(title: String, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>, location_string: String) -> Post {
         let mut post = Post::default();
 
         post.title = title;
@@ -77,6 +78,7 @@ impl Post {
         post.views = 0;
         post.time_type = time_type;
         post.tags = tags;
+        post.location_string = location_string;
 
         post
     }

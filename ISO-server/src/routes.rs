@@ -83,7 +83,7 @@ pub async fn get_individual_post(
 
 #[derive(Default, Deserialize, Serialize, Clone)]
 pub struct NewPost {
-    title: String, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>
+    title: String, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>, location_string: String,
 }
 
 #[post("/api/v1/posts/new")] 
@@ -94,7 +94,7 @@ pub async fn new_post(
 
     let mut db = db_mut().await;
 
-    let result = db.add_post(post.title, post.post_type, post.owner_uuid, post.time_type, post.tags).await;
+    let result = db.add_post(post.title, post.post_type, post.owner_uuid, post.time_type, post.tags, post.location_string).await;
     drop(db);
 
     if result.is_err() {

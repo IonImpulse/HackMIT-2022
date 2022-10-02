@@ -26,3 +26,12 @@ Accept a user's JSON object as request body and returns the user's information.
     verified: true, // Whether user is verified
 }
 ```
+
+### `GET` /api/v1/posts/getIndividual/{uuid}
+Find an individual post by UUID
+```js
+{
+    results: {
+        
+    },
+}
