@@ -19,6 +19,7 @@ const Signup = (props) => {
 
     async function submitData() {
         try {
+
             const countryCode = phoneInput.current.getCountryCode();
             console.log(phoneInput);
 
@@ -73,8 +74,9 @@ const Signup = (props) => {
             } catch {
                 console.log("Error saving user data to local storage");
             }
-             
-            console.log(results);
+            setModal(false); 
+            console.log(userObject);
+            
             props.navigation.navigate('Feed');
         }
         fn();
