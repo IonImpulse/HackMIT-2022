@@ -13,12 +13,6 @@
     "expo": "^46.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "deprecated-react-native-prop-types": "^2.3.0",
-<<<<<<< HEAD
-    "expo": "^46.0.13",
-=======
-    "@react-navigation/native-stack": "^6.9.0",
-    "deprecated-react-native-prop-types": "^2.3.0",
->>>>>>> 80d5a20 (Linked sign up page with API)
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-native": "0.69.6",
