@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         width:100,
         height:40,
         borderRadius: 10,
-        backgroundColor: "orange",
+        backgroundColor: "#CDB4DB",
         justifyContent: "center",
     },
     buttonText: {
