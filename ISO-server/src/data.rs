@@ -135,6 +135,8 @@ impl Data {
                 } else {
                     let mut post = post.unwrap();
                     post.claim(user.uuid.clone());
+                    let pos = self.feed.iter().position(|x| x.uuid == uuid);
+                    self.feed[pos.unwrap()] = post;
                     return Ok(());
                 }
               }
