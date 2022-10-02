@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import User from './contexts/User';
 import Splash from './views/Splash';
 import Signup from './views/Signup';
-import Feed from './views/Feed';
+import Feed from './components/HomeWithTabs';
 import RequestDetails from './views/RequestDetails';
 
 import HomeWithTabs from './components/HomeWithTabs';
@@ -36,7 +36,7 @@ export default function App() {
         }}>
           <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="Signup" component={Signup} /> 
-          <Stack.Screen name="Feed" component={Feed} />
+          <Stack.Screen name="Feed" component={HomeWithTabs} />
           
           <Stack.Screen name="RequestDetails" component={RequestDetails} />
           

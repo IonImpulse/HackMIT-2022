@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Alert, StyleSheet, Text, View, TouchableOpacity, Touchable, ScrollView } from 'react-native';
+import User from '../contexts/User';
 import { useState } from 'react';
 const isoColor = "#A2D2FF";
 const osiColor = "#CDB4DB";
 import { useNavigation } from '@react-navigation/native';
 
-const Request = ({ user, data, title, location_string, type, tags}) => {
+const Request = ({ data, title, location_string, type, tags}) => {
+  const userContext = useContext(User);
+
   const navigation = useNavigation();
   const claimPressed = (text) => {
     Alert.alert(
