@@ -142,11 +142,16 @@ impl User {
 
 
     pub fn generate_token() -> String {
-        let mut buf = [0u8; 128];
+        let mut code = String::new();
 
-        rand::rand_bytes(&mut buf).unwrap();
-        
-        return String::from_utf8_lossy(&buf).to_string();
+        for _ in 0..256 {
+            let mut buf = [0u8; 1];
+            rand::rand_bytes(&mut buf).unwrap();
+
+            code.push(POSSIBLE_CODE_CHARS[buf[0] as usize % POSSIBLE_CODE_CHARS.len()]);
+        }
+
+        code
     }
 
     pub fn generate_code() -> String {

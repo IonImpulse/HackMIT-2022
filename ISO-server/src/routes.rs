@@ -124,7 +124,7 @@ pub struct VerifyCodeJSON {
     pub uuid: String,
     pub code: String,
 }
-#[post("/api/v1/users/checkVerification/")]
+#[post("/api/v1/users/checkVerification")]
 pub async fn check_verification(
     data: web::Json<VerifyCodeJSON>,
 ) -> Result<HttpResponse, Error> {
