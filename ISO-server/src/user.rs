@@ -141,6 +141,8 @@ impl User {
             return Err("Invalid verification code".to_string());
         }
 
+        self.verified = "true".to_string();
+
         Ok(self.clone())
     }
 
