@@ -137,6 +137,10 @@ impl User {
 
         println!("{:?}", json);
 
+        if json["status"].as_str().unwrap() != "approved" {
+            return Err("Invalid verification code".to_string());
+        }
+
         Ok(self.clone())
     }
 
