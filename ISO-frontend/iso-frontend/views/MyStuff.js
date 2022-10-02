@@ -37,12 +37,8 @@ const MyStuff = (...props) => {
     <View style={styles.biggerContainer}>
         <Header title="My Stuff"/>
         <View style={styles.bigContainer}>
-            
-                <View style={styles.container}>
-                    <Text style={styles.subtitleText}>Filters: </Text>
-                </View>
+        
                 <SafeAreaView style={styles.wrapper}>
-                    <Header title="My Interactions"/>
                     {posts ?
                     <ScrollView style={styles.container}>
                     {posts != null &&
@@ -64,6 +60,10 @@ const MyStuff = (...props) => {
 }
 
 const styles = StyleSheet.create({
+    wrapper:{
+        width: "100%",
+
+    },
     biggerContainer: {
         height:"100%",
         width: "100%",
