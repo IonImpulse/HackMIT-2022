@@ -127,12 +127,12 @@ async fn async_main() -> std::io::Result<()> {
         let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
         builder
             .set_private_key_file(
-                "/etc/letsencrypt/live/make.hmc.edu/privkey.pem",
+                "/etc/letsencrypt/live/isoapp.dev/privkey.pem",
                 SslFiletype::PEM,
             )
             .unwrap();
         builder
-            .set_certificate_chain_file("/etc/letsencrypt/live/make.hmc.edu/fullchain.pem")
+            .set_certificate_chain_file("/etc/letsencrypt/live/isoapp.dev/fullchain.pem")
             .unwrap();
 
         // Create builder without ssl
