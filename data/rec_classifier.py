@@ -1,10 +1,15 @@
 """
 Description:
-Classifier for chance of being a successful ISO/OSI.
+Classifier for chance of being a successful ISO/OSI. Uses cleaned data generated from content_cleaning.py.
+
+With more users, the probabilistic classification predictions generated from these classifier can be used to order users' 
+so that we promote ISO's and OSI's that are most likely to be successful.
 
 (Author: Kerria Pang-Naylor)
 
 """
+
+# imports
 
 from time import time
 import pandas as pd
@@ -32,7 +37,6 @@ import joblib
 #  INPUTS (This classification model generating script will be turned into function eventually)
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 desc = "ISO"
-bio_or_twe = "TWE" # "TWE" or "BIO"; whether or not classification is on Twitter bios or tweets
 column_name = "cleaned"#"text" # "text" (uncleaned)  or "cleaned# cleaned text (in list form)
 balance_method = "delete"#"duplicate" # either "duplicate" (preferable) or "delete" to correct unbalanced dataset. Anything else results in no balancing.
                              # Duplicate creates copies of under-represented datapoints for model, delete simply deletes excess datapoints of the majority

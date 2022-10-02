@@ -16,12 +16,6 @@ import math
 import numpy as np
 import pandas as pd
 
-
-# df = pd.read_csv("RVW_EDA.csv")
-# df_learn = pd.read_csv("RvW_preprocess.csv")
-# df2 = pd.read_csv("RVW_FULL.csv")
-
-
 def view_hist(df, x_axis, nbins = 200, color = "ISO_type", log_x = False, log_y = False):
     """
     General histogram generating function for roe v. wade data. Can choose dataframe and name of column that creates the x_axis.
@@ -113,7 +107,6 @@ def plot_top_nonstopwords(df, title, type_ = "OSI", num = 20,label_column = "ISO
     else:
         df_ = df.loc[df[label_column] == type_]
 
-    #print(df)
     text_lists = list(df_[f"{column_name}"])
     #print(text_lists)
     text = []
@@ -158,6 +151,8 @@ def plot_top_nonstopwords(df, title, type_ = "OSI", num = 20,label_column = "ISO
 
     return top
 
+
+# irrelevant data analysis tools for network distribution
 def make_buckets(nbins, range_):
     """Helper to graph_surface_of_hist. Imports number of bins (nbins, int), hist_data (list), and range_ (tuple, the minimum and maximum x-values) to create a list 
     of tuple pairs of each 'bin' range for the histogram. Returns dictionary template with the correct bucket ranges as keys (all values initially set to 0)."""
@@ -288,8 +283,7 @@ def graph_surface_of_hist(df, nbins = 200, range_ = (0,1000), column_name = "lik
     return fit_str
 
 def balance_by_del(df, minority = 1):
-    """Quick function that balances the labels in a dataframe by deletion. Copied from RVW_classifier
-    """
+    """Quick function that balances the labels in a dataframe by deletion. Copied from RVW_classifier."""
 
     difference  = abs(df["label"].value_counts()[1] - df["label"].value_counts()[0])
     drop_df = df[df["label"] == 0].sample(difference)
@@ -298,6 +292,7 @@ def balance_by_del(df, minority = 1):
     return df
 
 def display_balance(df, title = "Total vs. Fulfilled ISOs/OSIs"):
+    """Displays ratio between total and fulfilled ISOs/OSIs"""
     df_ = df.loc[df["is_reply"] == False]
 
     mm, no_mm = df_["mm"].value_counts()[1], df_["mm"].value_counts()[0]

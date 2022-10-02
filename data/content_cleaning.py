@@ -1,5 +1,4 @@
-"""More intensive content cleaning for """
-
+"""Code to used to clean ISO/OSI email contents and subject line data to prepare for classification."""
 import pandas as pd
 import re
 from textblob import TextBlob
@@ -30,7 +29,7 @@ def clean_text(text):
     """Cleans text for tweet-specific terms. Inputs and outputs string."""
     # Tweet specific cleaning
     try:
-        text = re.sub(r'Content[A-Za-z0-9]+', '', text) # get rid of tags ('r' tells python it's a raw string)
+        text = re.sub(r'Content[A-Za-z0-9]+', '', text) # get rid of 'Content' noise
         text = re.sub(r'https?:\/\/\S+', '', text) # Removes hyperlinks question mark --> can have 0 or 1 s's
         text = re.sub(r'\n', '', text)
         text = re.sub(r'\r', '', text)
@@ -59,7 +58,7 @@ def get_wordnet_pos(tag):
 
 def preprocess_df(filename = "", df = None, text_name = "text"):
     """
-    Preprocessing for dataframe. Adds new columns to dataframe. Returns new dataframe. 
+    Preprocessing for dataframe (tweaked copy from NLP_preprocessing). Adds new columns to dataframe. Returns new dataframe. 
     text_name and category_name are names of columns in dataframe
         INPUTS: filename (str) or df (pandas dataframe), text_name (str), category_name (str)
         RETURNS: cleaned (pandas dataframe)
@@ -179,10 +178,8 @@ df = pd.DataFrame()
 df_ = pd.read_pickle("ISO_data_processed.pkl")
 df_ = df_[df_["is_reply"] == False]
 df_ = df_.loc[(df_["Body"].isnull() == False) | (df_["Subject"].isnull() == False)]
-#df_ = df_.loc[df_["Subject"]]
 df_["Body"]= df_["Body"].apply(clean_text)
 df_["Body"] = df_["Body"].apply(useless_clean)
-#df_["Body"] = df_["Body"].apply(is_useless)
 
 df["text"] = df_["Subject"] + " " + df_["Body"]
 df["label"] = df_["mm"]
@@ -192,4 +189,4 @@ df = df[df["text"].isnull() == False]
 #df["useless?"] = df["cleaned?"].apply(is_useless)
 #df = df[df["useless?"] == False]
 df = preprocess_df(df = df)
-df["cleaned"] = df["lemmatized"].apply(lambda x: ' '.join(x))
+df["cleaned"] = df["lemmatized"].apply(lambda x: ' '.join(x)) # we will use this for text classification

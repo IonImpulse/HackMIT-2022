@@ -1,7 +1,7 @@
 """
 Description:
---HACKMIT Version--
-This file contains lots of helper functions and modules for NLP, especially preprocessing (text cleaning, getting textblob values, etc.). 
+This file contains lots of helper functions and modules for NLP, especially preprocessing (text cleaning, getting textblob values, etc.). Eventually NLP and ML
+will be used for how the search page forms.
 I used the online Introduction to NLP course by WomenWhoCode on youtube and github: https://github.com/WomenWhoCode/WWCodeDataScience/tree/master/Intro_to_NLP.
 
 (Author: Kerria Pang-Naylor)
@@ -87,19 +87,18 @@ def remove_emojis(text):
                            "]+", flags=re.UNICODE)
     return emoji_pattern.sub(r'', text)
 
-def clean_tweet(text):
-    """Cleans tweets for tweet-specific terms. Inputs and outputs string."""
+def clean_text(text):
+    """Cleans specific terms. Inputs and outputs string."""
     # Tweet specific cleaning
     text = re.sub(r'@[A-Za-z0-9]+', '', text) # get rid of tags ('r' tells python it's a raw string)
     text = re.sub(r'#', '', text) # removes the # symbol in front of hashtags
-    text = re.sub(r'RT[\s]+', '', text) # removes 'RT' for retweets
     text = re.sub(r'https?:\/\/\S+', '', text) # Removes hyperlinks question mark --> can have 0 or 1 s's
     text = re.sub(r'\n', '', text)
     text = remove_emojis(text)
     
     return text
 
-def preprocess_df(filename = "classification-data/FULL_BOTH_TWEETS_CLASSIFICATION", df = None, text_name = "text"):
+def preprocess_df(filename = None, df = None, text_name = "text"):
     """
     Preprocessing for dataframe. Adds new columns to dataframe. Returns new dataframe. 
     text_name and category_name are names of columns in dataframe
@@ -110,9 +109,9 @@ def preprocess_df(filename = "classification-data/FULL_BOTH_TWEETS_CLASSIFICATIO
         df = pd.read_pickle(f"{filename}.pkl")
 
     
-    df["cleaned_tweet"] = df[text_name].apply(lambda text: clean_tweet(text))
+    df["cleaned"] = df[text_name].apply(lambda text: clean_text(text))
     # first remove contractions
-    df["no_contract"] = df["cleaned_tweet"].apply(lambda text: [contractions.fix(word) for word in text.split()])
+    df["no_contract"] = df["cleaned"].apply(lambda text: [contractions.fix(word) for word in text.split()])
 
     # turn list of contractionless words back into a singular string
     df['msg_str'] = [' '.join(map(str,list_)) for list_ in df['no_contract']]
@@ -131,14 +130,6 @@ def preprocess_df(filename = "classification-data/FULL_BOTH_TWEETS_CLASSIFICATIO
     # make everything lowercase
     df['lower'] = df['manual_correct'].apply(lambda list_: [word.lower() for word in list_])
 
-    # get rid of punctuation (REPLACED)
-    #punc = string.punctuation
-    #df['no_punc'] = df['lower'].apply(lambda list_: [word for word in list_ if word not in punc])
-
-    # spell checking (we're not doing this rn)
-    # from spellchecker import SpellChecker # microsoft text blob
-    # spell = SpellChecker()
-
     # get rid of stop words
 
     stop_words = set(stopwords.words('english'))
@@ -155,70 +146,6 @@ def preprocess_df(filename = "classification-data/FULL_BOTH_TWEETS_CLASSIFICATIO
 
 
     return df
-
-def last_clean(tokenized_text):
-    """
-    Last minute removals and corrections of words. 
-        INPUTS: tokenized_text (list of words)
-        RETURNS: cleaned (list of words)
-    """
-    # cleaned = [word for word in ast.literal_eval(tokenized_text) if word != "amp"]
-    # cleaned = [word if word != "scouts" else "scotus" for word in cleaned ]
-    # cleaned = [word if word != "scouts" else "scotus" for word in cleaned ]
-    cleaned = []
-    tokenized = tokenized_text
-    skip = {i : False for i in range(len(tokenized))} # booleon dictionary of whether certain indices should be skipped
-
-    for i, word in enumerate(tokenized) :
-        word = word.lower()
-        if skip[i]:
-            continue
-
-        if (word != "amp") and (word != "scouts") and (word != "u") and (word != "proline") and (word != "pro") and (word != "roe") and (word != "roevswade") and (word != "rap") and word != "v":
-            cleaned.append(word)
-
-        elif (word == "amp") or (word == "u") or (word == "v"):
-            pass
-
-        elif word == "scouts":
-            cleaned.append("scotus")
-
-        elif word == "proline":
-            cleaned.append("prolife")
-
-        elif word == "pro":
-            # make ['pro', 'life'] --> prolife (pro choice --> prochoice)
-            try:
-                if tokenized[i+1] == "life":
-                    cleaned.append("prolife")
-                    skip[i+1] = True
-           
-                elif tokenized[i+1] == "choice":
-                    cleaned.append("prochoice")
-                    skip[i+1] = True
-
-                else:
-                    cleaned.append(word)
-            except Exception:
-                pass
-
-        elif word == "roe":
-            # replace ['roe', 'v', 'wade'] to roevwade
-            try:
-                if ("v" in tokenized[i+1]) and (tokenized[i+2] == "wade"):
-                    cleaned.append("roevwade")
-                    skip[i+1], skip[i+2] = True, True
-            except Exception: # when tries to go out of index, don't replace with "roevwade"
-                pass
-        elif word == "roevswade":
-            cleaned.append("roevwade")
-        elif word == "rap":
-            cleaned.append("rape")
-
-        
-
-    return cleaned
-
 
 def subjectivity(text):
     """
@@ -238,13 +165,6 @@ def polarity(text):
         OUTPUTS: (str)
     """
     return TextBlob(text).sentiment.polarity
-
-
-
-# DF cleaning
-
-
-
 
 
 df = pd.read_pickle('text.pkl')
