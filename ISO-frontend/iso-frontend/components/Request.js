@@ -6,7 +6,7 @@ const isoColor = "#A2D2FF";
 const osiColor = "#CDB4DB";
 import { useNavigation } from '@react-navigation/native';
 
-const Request = ({ data, title, location_string, type, tags}) => {
+const Request = ({ data, title, location_string, type, tags }) => {
   const userContext = useContext(User);
 
   const navigation = useNavigation();
@@ -23,26 +23,24 @@ const Request = ({ data, title, location_string, type, tags}) => {
         {
           text: "OK", onPress: async () => {
             const response = await fetch('https://isoapp.dev/api/v1/posts/claim', {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                mode: 'cors',
-                cache: 'no-cache',
-                credentials: 'same-origin',
-                redirect: 'follow',
-                referrerPolicy: 'no-referrer',
-                body: JSON.stringify({user: userContext.user, post_uuid: data.uuid})
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              method: 'POST',
+              mode: 'cors',
+              cache: 'no-cache',
+              credentials: 'same-origin',
+              redirect: 'follow',
+              referrerPolicy: 'no-referrer',
+              body: JSON.stringify({ user: userContext.user, post_uuid: data.uuid })
             });
 
             let json = await response.json();
             console.log(json);
 
-            if(json.success) {
-              Alert.alert("Claimed!");
-              // Rerender home
-              props.navigation.navigate('Feed');
-            }
+            Alert.alert("Claimed!");
+            // Rerender home
+            props.navigation.navigate('Feed');
           }
         }
       ]
@@ -58,47 +56,23 @@ const Request = ({ data, title, location_string, type, tags}) => {
         <View style={styles.circle}>
           <Text style={[styles.circleText, (type == "OSI") && styles.osiTextColor]}>{type}</Text>
         </View>
-
         <View style={styles.header}>
           <View>
             <Text style={styles.title}>{title.toLowerCase()}</Text>
-            <Text >location: {location_string.toLowerCase()}</Text>
+            <Text>location: {location_string.toLowerCase()}</Text>
           </View>
-
         </View>
-
         <View>
           <View style={styles.tags}>
-            {(tags.length > 0) &&
             <View style={[styles.tagBox, (type == "OSI") && styles.osiBackgroundColor]}>
-              
-            <Text style={styles.tag}>{tags[0].toLowerCase()}</Text>
-           
-          
-         </View>
-
-            }
-            
-            {/* {tags.map((tag) =>
-            <View style={[styles.tagBox, (type=="OSI") && styles.osiBackgroundColor]}>
-              <Text style={styles.tag}>{tag.toLowerCase()}</Text>
+              <Text style={styles.tag}>{(tags[0] ?? "").toLowerCase()}</Text>
             </View>
-            )} */}
-
           </View>
           <TouchableOpacity onPress={() => claimPressed(type + " " + title)} style={[styles.tagBox, styles.claimBox]}>
             <Text style={[styles.tag, styles.claimText]}>claim</Text>
           </TouchableOpacity>
-
-
-
         </View>
-
-
       </View>
-
-
-
     </View>
   );
 }

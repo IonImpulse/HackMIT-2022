@@ -4,24 +4,29 @@ import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TextInput,Scr
 
 import Header from '../components/Header';
 import User from '../contexts/User';
+import Request from '../components/Request';
 
-const MyStuff = () => {
+const MyStuff = (...props) => {
     const userContext = useContext(User);
     const userObject = userContext.user;
     const [posts, setPosts] = useState(posts);
 
     useEffect(() => {
-        const postIds = userObject[posts];
+        const postIds = userObject.posts;
         let postList = [];
 
         async function fn() {
-            for (let uid in postIds) {
-                const response = await fetch(`/api/v1/posts/single/${uid}`);
+            for (let uuid of postIds) {
+                console.log(uuid);
+                const response = await fetch(`https://isoapp.dev/api/v1/posts/single/${uuid}`);
                 const json = await response.json();
 
-                postList.push(json.body)
+                postList.push(json.results);
+
+                console.log(json);
             }
             setPosts(postList);
+            console.log("LLLLLLLLLLLLLLLLLLLLLLLLLL");
             console.log(postList);
         }
         fn();
@@ -35,7 +40,6 @@ const MyStuff = () => {
             
                 <View style={styles.container}>
                     <Text style={styles.subtitleText}>Filters: </Text>
-
                 </View>
                 <SafeAreaView style={styles.wrapper}>
                     <Header title="My Interactions"/>
@@ -43,10 +47,8 @@ const MyStuff = () => {
                     <ScrollView style={styles.container}>
                     {posts != null &&
                     posts.map((req) => 
-                        // <Text>{req.title}</Text>
                         <Request key={Math.floor(Math.random() * 100000)}navigation={props.navigation} user={userObject} data={req} type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
-                        )
-                    }
+                    )}
                     </ScrollView>
                     :
                     <Text>Be patient, still loading</Text>
