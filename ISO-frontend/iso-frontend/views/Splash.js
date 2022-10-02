@@ -14,6 +14,7 @@ const Splash = (props) => {
             if (obj != null) {
                 userContext.setUser(JSON.parse(obj));
                 props.navigation.navigate('Feed');
+                console.log(userContext.user);
                 let res = await fetch('https://isoapp.dev/api/v1/users/userInfo', {
                     method: 'POST',
                     headers: {
@@ -24,7 +25,7 @@ const Splash = (props) => {
                     credentials: 'same-origin',
                     redirect: 'follow',
                     referrerPolicy: 'no-referrer',
-                    body: JSON.stringify({user: userContext.user})
+                    body: JSON.stringify(userContext.user)
                 });
 
                 let json = await res.json();

@@ -96,11 +96,13 @@ impl Data {
         if self.users.contains_key(&owner_uuid) || true {
             let post = Post::new(title, post_type, owner_uuid.clone(), time_type, tags, location_string);
 
-            let user = self.users.get_mut(&owner_uuid);
+            let user = self.users.get(&owner_uuid).clone();
 
             if user.is_some() {
-                let user = user.unwrap();
+                let mut user = user.unwrap().clone();
                 user.add_post(post.uuid.clone());
+                
+                self.add_update_user(user.clone());
             }
 
             self.feed.insert(0, post.clone());
