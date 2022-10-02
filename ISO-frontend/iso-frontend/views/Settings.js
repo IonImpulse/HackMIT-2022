@@ -11,7 +11,8 @@ const Settings = () => {
         { id: 4, name: 'Service' },
         { id: 5, name: 'Furniture' },
         { id: 6, name: 'Stolen/Lost' },
-        { id: 7, name: 'Transportation'}
+        { id: 7, name: 'Transportation'},
+        { id: 8, name: 'Other'}
     ];
     const [selectedItems, setSelectedItems] = useState([]);
     const onSelectedItemsChange = (selectedItems) => {

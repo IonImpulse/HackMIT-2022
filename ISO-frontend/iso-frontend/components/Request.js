@@ -1,27 +1,51 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 const Request = (props) => {
+
+  
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>{props.title}</Text>
+                <Text style={styles.title}>{props.type} {props.title}</Text>
                 <Text>{props.location}</Text>
             </View>
             {/* <Text style={styles.content}>{props.children}</Text> */}
+            <View style={styles.tags}>
+            {props.tags.map((tag) =>
+            <View style={styles.tagBox}>
+              <Text style={styles.tag}>{tag}</Text>
+            </View>
+            )}
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+  tags: {
+    flexDirection: 'row',
+    
+  },
+  tagBox: {
+    borderRadius: 5,
+    backgroundColor: "white",
+    marginRight: 5,
+    marginTop: 2,
+  },
+  tag: {
+    paddingRight: 5,
+    paddingLeft: 5,
+  },
   container: {
     display: 'flex',
-    width: '95%',
-    height: '10%',
-    backgroundColor: 'lightgreen',
+    width: '100%',
+    height: 55,
+    backgroundColor: 'lightblue',
     paddingLeft: "3%",
     paddingTop: '1%',
     paddingRight: '3%',
-    borderRadius: '20%',
+    borderRadius: '10%',
     marginTop: '2%',
   },
   header: {
