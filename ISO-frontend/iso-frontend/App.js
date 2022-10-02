@@ -8,7 +8,7 @@ import Feed from './views/Feed';
 import SubmitRequest from './views/SubmitRequest';
 import MyStuff from './views/MyStuff';
 import Settings from './views/Settings';
-import Login from './views/Login';
+import Signup from './views/Signup';
 
 import HomeWithTabs from './components/HomeWithTabs';
 
@@ -21,7 +21,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Feed" component={HomeWithTabs} />
         
         {/* <Stack.Screen name="MyStuff" component={MyStuff} />
