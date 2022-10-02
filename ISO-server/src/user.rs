@@ -76,6 +76,10 @@ impl User {
 
         let res = res.unwrap();
 
+        if res.status() != 201 || res.status() != 200 {
+            return Err(res.error_for_status().unwrap_err().to_string());
+        }
+
         let text = res.text().await.unwrap();
         // parse as json
         let json: serde_json::Value = serde_json::from_str(&text).unwrap();
