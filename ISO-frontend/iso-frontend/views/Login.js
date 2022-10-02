@@ -37,7 +37,7 @@ const Login = (props) => {
             console.log(json);
 
         } catch(error) {
-            alert("Network failure!");
+            alert(`${error}`);
         }
     } 
 

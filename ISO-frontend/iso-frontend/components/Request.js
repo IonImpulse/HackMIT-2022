@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     paddingLeft: "3%",
     paddingTop: '1%',
     paddingRight: '3%',
-    borderRadius: '10%',
+    borderRadius: 10,
     marginTop: '2%',
   },
   header: {
