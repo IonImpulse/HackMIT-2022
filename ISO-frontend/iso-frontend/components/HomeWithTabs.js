@@ -16,6 +16,7 @@ const HomeWithTabs = () => {
         console.log(tab);
 
     }
+    
   return (
         <SafeAreaView style={styles.biggerContainer}>
             {tab == "Home" && <Feed />}
@@ -66,15 +67,16 @@ const styles = StyleSheet.create({
         height:"100%",
         width: "100%",
         justifyContent: "center",
-
     },
     tabBar: {
         position: "absolute",
         width: "100%",
         flexDirection: "row",
         justifyContent: "space-around",
-        height: "10%",
+        height: "12%",
         backgroundColor: "white",
+        paddingTop: 5,
+        paddingBottom: 20,
         bottom: 0,
     },
     button: {

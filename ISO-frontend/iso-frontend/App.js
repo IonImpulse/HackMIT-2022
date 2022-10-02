@@ -13,11 +13,24 @@ import Signup from './views/Signup';
 import RequestDetails from './views/RequestDetails';
 
 import HomeWithTabs from './components/HomeWithTabs';
-
+import { useFonts } from 'expo-font';
 const Stack = createNativeStackNavigator();
 
 
 export default function App() {
+  // Font load async
+  const [loaded] = useFonts({
+    "Inter-Bold": require('./assets/fonts/Inter-Black.ttf'),
+    "Inter": require('./assets/fonts/Inter-Regular.ttf'),
+    "Inter-Medium": require('./assets/fonts/Inter-Medium.ttf'),
+    "Inter-SemiBold": require('./assets/fonts/Inter-SemiBold.ttf'),
+    "Inter-Light": require('./assets/fonts/Inter-Light.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <NavigationContainer >
       <Stack.Navigator screenOptions={{

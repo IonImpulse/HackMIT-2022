@@ -18,14 +18,16 @@ const Header = ({title}) => {
 const styles = StyleSheet.create({
     container:{
         width: "100%",
-        height: "10%",
+        height: "11%",
         backgroundColor: "#FFAFCC",
         justifyContent: "center",
         alignItems: "center",
-        
+        paddingTop: 35,
+        paddingBottom: 0,
     },
     title: {
-        fontSize: 20,
+        fontFamily: "Inter-Bold",
+        fontSize: 30,
         fontWeight: "bold",
     }
     
