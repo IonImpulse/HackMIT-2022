@@ -123,6 +123,7 @@ async fn async_main() -> std::io::Result<()> {
         .run()
         .await;
     } else {
+
         let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
         builder
             .set_private_key_file(
@@ -144,11 +145,6 @@ async fn async_main() -> std::io::Result<()> {
                 .max_age(3600);
 
             App::new()
-                .wrap(
-                    RedirectSchemeBuilder::new()
-                        .replacements(&[(":8080", ":8443")])
-                        .build(),
-                )
                 .wrap(actix_web::middleware::Logger::new(LOGGER_STR))
                 .wrap(actix_web::middleware::Compress::default())
                 .wrap(cors)
