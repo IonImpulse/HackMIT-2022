@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
+import Header from '../components/Header';
 const Settings = () => {
     const [type, changeType] = useState(true);
     const DATA = [
@@ -29,8 +30,8 @@ const Settings = () => {
 
   return (
     <View style={styles.biggerContainer}>
+        <Header title="Settings"/>
         <View style={styles.bigContainer}>
-        <Text style={styles.titleText}>Settings</Text>
 
         <View style={styles.container}>
                 <Text style={styles.subtitleText}>Tap to change theme: </Text>
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
 
     },
     bigContainer: {
-        margin: 60,
+        margin: 30,
     //   flexDirection: "column", 
       alignItems: "center", 
 

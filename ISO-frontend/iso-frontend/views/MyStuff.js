@@ -1,21 +1,22 @@
 import React from 'react'
 import { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
+import Header from '../components/Header';
 const MyStuff = () => {
     
 
 
   return (
     <View style={styles.biggerContainer}>
+        <Header title="my stuff"/>
         <View style={styles.bigContainer}>
-            <Text style={styles.titleText}>My Stuff</Text>
             
                 <View style={styles.container}>
                     <Text style={styles.subtitleText}>Filters: </Text>
 
                 </View>
                 <ScrollView style={styles.list}>
-                    <Text>your posts will go here</Text>
+                    <Text key={0}>your posts will go here</Text>
                 </ScrollView>
                 
 
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
 
     },
     bigContainer: {
-        margin: 60,
+        margin: 30,
     //   flexDirection: "column", 
       alignItems: "center", 
 

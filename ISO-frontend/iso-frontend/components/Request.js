@@ -1,27 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Touchable } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Touchable, ScrollView } from 'react-native';
 import { useState } from 'react';
 const isoColor = "#A2D2FF";
 const osiColor = "#CDB4DB";
 import { useNavigation } from '@react-navigation/native';
 const Request = ({data, title, location_string, type, tags}) => {
   const navigation = useNavigation(); 
-  
-  // const [color, setColor] = useState(isoColor);
 
-  // if (type == "OSI"){
-  //   setColor(osiColor);
-  // }
-  //() => {navigation.navigate("RequestDetails", {
-  //   data: data,
-  // })
-  
 
     return (
-        <TouchableOpacity onPress={()=>{}} style={styles.container}>
+        <View style={[styles.container, (type=="OSI") && styles.osiBackgroundColor]}>
           <View style={styles.body}>
           <View style={styles.circle}>
-            <Text style={styles.circleText}>{type}</Text>
+            <Text style={[styles.circleText, (type=="OSI") && styles.osiTextColor]}>{type}</Text>
           </View>
 
           <View style={styles.header}>
@@ -35,7 +26,7 @@ const Request = ({data, title, location_string, type, tags}) => {
           <View>
           <View style={styles.tags}>
             {tags.map((tag) =>
-            <View style={styles.tagBox}>
+            <View style={[styles.tagBox, (type=="OSI") && styles.osiBackgroundColor]}>
               <Text style={styles.tag}>{tag.toLowerCase()}</Text>
             </View>
             )}
@@ -54,11 +45,19 @@ const Request = ({data, title, location_string, type, tags}) => {
           
             
 
-        </TouchableOpacity>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
+  osiBackgroundColor: {
+    backgroundColor: osiColor,
+  },
+  osiTextColor: {
+    color: osiColor,
+    
+
+  },
   claimBox: {
     borderColor: "black",
     backgroundColor: "black",
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
   circleText:{
     fontSize: 20,
     fontWeight: "bold",
-    color: "#A2D2FF",
+    color: isoColor,
 
   },
   tags: {
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
     height: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#A2D2FF",
+    backgroundColor: isoColor,
     marginRight: 5,
     marginTop: 2,
     position: "absolute",
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: '100%',
     height: 90,
-    backgroundColor: "#A2D2FF",
+    backgroundColor: isoColor,
     paddingLeft: 10,
     paddingRight: 10,
     marginTop: '2%',

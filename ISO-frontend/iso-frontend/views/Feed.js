@@ -4,7 +4,6 @@ import Request from '../components/Request';
 import Header from '../components/Header';
 
 const Feed = ({navigation}) => {
-    const tags = ["Food", "Furniture"];
 
     const [data, setData] = useState([]);
     const getData = async () => {
@@ -27,15 +26,20 @@ const Feed = ({navigation}) => {
     return (
         <SafeAreaView style={styles.wrapper}>
         <Header title="my feed"/>
+        {data.length != 0 ?
         <ScrollView style={styles.container}>
-                {data != null &&
-                data.map((req) => 
-                    // <Text>{req.title}</Text>
-                    <Request navigation={navigation} data={req} type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
-    
-                    )
-                }
-                </ScrollView>
+        {data != null &&
+        data.map((req) => 
+            // <Text>{req.title}</Text>
+            <Request key={Math.floor(Math.random() * 100000)}navigation={navigation} data={req} type={req.iso_or_osi} title={req.title} location_string={req.location_string} tags={req.tags}></Request>
+
+            )
+        }
+        </ScrollView>
+        :
+        <Text>Be patient, still loading</Text>
+        }
+        
         </SafeAreaView>
 
     );

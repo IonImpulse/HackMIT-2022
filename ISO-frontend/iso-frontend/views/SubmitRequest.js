@@ -3,10 +3,10 @@ import { StatusBar } from 'expo-status-bar';
 import { Alert, StyleSheet, Text, View, SafeAreaView, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import { style } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
-
-const styleDict = {
+import Header from '../components/Header';
+var styleDict = {
     osiColor: "blue",
-    isoColor: "orange",
+    isoColor: "#CDB4DB",
 }
 
 const SubmitRequest = (props) => {
@@ -14,6 +14,7 @@ const SubmitRequest = (props) => {
     const [title, setTitle] = useState("");
     const [location, setLocation] = useState("");
     const [selectedItems, setSelectedItems] = useState([]);
+
     
     const DATA = [
         { id: 1, name: 'Food' },
@@ -122,23 +123,22 @@ const SubmitRequest = (props) => {
 
 
     return (
-        <View style={styles.biggerContainer} >
+        <SafeAreaView style={styles.biggerContainer} >
+            <Header title="submit a request"/>
         <SafeAreaView style={styles.bigContainer}>
-            <Text style={styles.titleText}>Submit a Request</Text>
-
             <View style={styles.container}>
-                <Text style={styles.subtitleText}>Tap to change type: </Text>
+                <Text style={styles.subtitleText}>tap to change type: </Text>
                 <TouchableHighlight onPress = { () => {changeType(!type)}}style={styles.typeButton}>
                     <Text style={styles.buttonText}>{type ? "ISO" : "OSI"}</Text>
                 </TouchableHighlight>
 
             </View>
             <View style={styles.container}>
-                <Text style={styles.subtitleText}>Title</Text>
+                <Text style={styles.subtitleText}>title:</Text>
                 <View style={styles.inputView} >
                 <TextInput
         style={{height: 30}}
-        placeholder="Tap return when done"
+        placeholder="tap return when done"
         onChangeText={newText => setTitle(newText)}
         defaultValue={title}
 
@@ -149,11 +149,11 @@ const SubmitRequest = (props) => {
 
             </View>
             <View style={styles.container}>
-                <Text style={styles.subtitleText}>Pickup Location</Text>
+                <Text style={styles.subtitleText}>pickup location</Text>
                 <View style={styles.inputView} >
                 <TextInput
         style={{height: 30}}
-        placeholder="Tap return when done"
+        placeholder="tap return when done"
         onChangeText={newText => setLocation(newText)}
         defaultValue={location}
 
@@ -166,7 +166,7 @@ const SubmitRequest = (props) => {
 
             <SafeAreaView style={styles.container}>
 
-            <Text style={styles.subtitleText}>Tags</Text>
+            <Text style={styles.subtitleText}>tags</Text>
 
             <View style={styles.selectContainer} >
             <MultiSelect
@@ -175,7 +175,7 @@ const SubmitRequest = (props) => {
           uniqueKey="id"
           onSelectedItemsChange={onSelectedItemsChange}
           selectedItems={selectedItems}
-          selectText="Select Items"
+          selectText="select items"
           searchInputPlaceholderText="Search Items Here..."
           onChangeInput={(text) => console.log(text)}
           tagRemoveIconColor="#CCC"
@@ -194,11 +194,11 @@ const SubmitRequest = (props) => {
             </View>    
         </SafeAreaView>
             <TouchableHighlight onPress={onSubmit}style={styles.submit}>
-                <Text>Submit</Text>
+                <Text>submit</Text>
             </TouchableHighlight>
 
         </SafeAreaView>
-        </View>
+        </SafeAreaView>
         
     );
 }
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
 
     },
     bigContainer: {
-        margin: 60,
+        margin: 30,
     //   flexDirection: "column", 
       alignItems: "center", 
 
