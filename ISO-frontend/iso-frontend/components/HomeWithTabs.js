@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TouchableHighlight, TextInput,ScrollView, Keyboard } from 'react-native';
 import SubmitRequest from '../views/SubmitRequest';
-import Login from '../views/Login'
 import Settings from '../views/Settings';
 import MyStuff from '../views/MyStuff';
 import Feed from '../views/Feed'
