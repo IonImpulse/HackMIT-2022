@@ -3,7 +3,21 @@ Repo (pronounced ree-poh) for team ***muddkippers*** at HackMIT 2022.
 # Idea: ISO (In Search Of)
 
 
+Our API is live at [isoapp.dev](https://isoapp.dev/api/v1/posts/feedPage/0)! Click for a sample our paginated feed. It's hosted on a VPS in Newark.
+
 # API Methods
+
+## GET
+
+### `GET` /api/v1/posts/single/{uuid}
+Find an individual post by UUID
+```js
+{
+    results: {
+        post: post_object, // Post object
+    },
+}
+```
 ### `GET` /api/v1/posts/feedPage/{index}
 Returns a page of posts from the feed. The index is the page number, starting at 0.
 ```js
@@ -13,7 +27,17 @@ Returns a page of posts from the feed. The index is the page number, starting at
 }
 ```
 
-## GET
+
+## POST
+
+### `POST` /api/v1/posts/claim
+Requires the following:
+```js
+{
+    user: User, // User object
+    post_uuid: "UUID-V4", // UUID of post to claim
+}
+```
 
 ### `POST` /api/v1/users/userInfo
 Accept a user's JSON object as request body and returns the user's information.
@@ -29,23 +53,33 @@ Accept a user's JSON object as request body and returns the user's information.
 }
 ```
 
-### `GET` /api/v1/posts/single/{uuid}
-Find an individual post by UUID
+### `POST` /api/v1/posts/new
+Accept a post's JSON object as request body and returns the post's information.
 ```js
 {
-    results: {
-        
-    },
+    title: "String", 
+    post_type: "PostType", 
+    owner_uuid: "String", 
+    time_type: "TimeType", 
+    tags: ["String"], 
+    location_string: "String",
 }
 ```
 
-## POST
-
-### `POST` /api/v1/posts/claim
-Requires the following:
+### `POST` /api/v1/users/startVerification
+Accept a user's JSON object as request body and returns the user's uuid. Sends a verification code to the user's phone number using Twilio.
 ```js
 {
-    user: User, // User object
-    post_uuid: "UUID-V4", // UUID of post to claim
+    phone_number: "E.164", // User's phone number
+    country: "String", // User's country
+}
+```
+
+### `POST` /api/v1/users/checkVerification
+Accept a user's JSON object as request body and returns the user's full User object, if Twilio verification is correct.
+```js
+{
+    code: "String", // Verification code
+    uuid: "UUID-V4", // User's UUID
 }
 ```
