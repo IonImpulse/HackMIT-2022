@@ -1,15 +1,13 @@
+import { style } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, TextInput, Modal, Pressable,
-    TouchableWithoutFeedback, Keyboard } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { Text, View, StyleSheet, TextInput, Modal, Pressable, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import PhoneInput from "react-native-phone-number-input";
 import VerifyUser from '../components/VerifyUser';
 
 const Login = (props) => {
     const [phoneNumber, changePhoneNumber] = useState("");
     const [country, changeCountry] = useState("");
-    const [modal, setModal] = useState(false);
+    const [success, setSuccess] = useState(false);
     const [verificationCode, setVerificationCode] = useState("");
     const [secondSuccess, setSecondSuccess] = useState(false);
     const [uuid, setUuid] = useState("");
@@ -30,17 +28,16 @@ const Login = (props) => {
                 body: JSON.stringify({phone_number: phoneNumber, country: "US"})
             });
             
-            // Get uuid from result
             let json = await response.json();
             let uuid = json.results;
+
             setUuid(uuid);
-             
-            // Enable modal window 
-            setModal(true);
+            setSuccess(true);
+
             console.log(json);
 
         } catch(error) {
-            alert(`${error}`);
+            alert("Network failure!");
         }
     } 
 
@@ -57,20 +54,10 @@ const Login = (props) => {
                     redirect: 'follow',
                     referrerPolicy: 'no-referrer',
                     body: JSON.stringify({"uuid": uuid, "code": verificationCode})
-            });
-            
-            let json = await response.json();
-            let userObject = json.results;
-            
-            // Save user object to LocalStorage
-            try { 
-                await AsyncStorage.setItem('@user_object', JSON.stringify(userObject));
-            } catch {
-                console.log("Error saving user data to local storage");
-            }
-             
-            console.log(results);
-            props.navigation.navigate('Feed');
+                });
+
+            const test = await response.text();
+            console.log(test);
         }
         fn();
     }, [verificationCode]);
@@ -78,9 +65,9 @@ const Login = (props) => {
     return (
         <View style={{width: '100%', height: '100%'}}> 
             <Modal transparent={true}
-                visible={modal}
+                visible={success}
                 onRequestClose={() => {
-                    setModal(false);
+                    setSuccess(false);
             }}>
                 <View style={styles.modalContent}>
                     <VerifyUser updateVerificationCode={setVerificationCode} />
