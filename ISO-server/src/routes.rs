@@ -58,54 +58,24 @@ pub async fn get_user_info(
     }
 }
 
-#[post("/api/v1/posts/testAddPost")]
-pub async fn new_test_post(
-    post: web::Json<Post>,
-) -> Result<HttpResponse, Error> {
-    let mut data = db_clone().await;
-    let post = post.into_inner();
-    data.feed.insert(0, post);
-
-    Ok(HttpResponse::Ok().finish())
+#[derive(Default, Deserialize, Serialize, Clone)]
+pub struct NewPost {
+    post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>
 }
 
 #[post("/api/v1/posts/new")] 
 pub async fn new_post(
-    post: web::Json<(String, Post)>,
+    post: web::Json<NewPost>,
 ) -> Result<HttpResponse, Error> {
-    let (token, post) = post.into_inner();
+    let post = post.into_inner();
 
     let mut db = db_mut().await;
 
-    let user = db.get_user_by_uuid(&post.get_owner());
-
-    if user.is_err() {
-        let json = json!({
-            "error": user.err().unwrap()
-        });
-
-        return Ok(HttpResponse::BadRequest().json(json));
-    }
-
-    let user = user.unwrap();
-
-    if user.get_token() != token {
-        let json = json!({
-            "error": "Invalid token"
-        });
-
-        return Ok(HttpResponse::BadRequest().json(json));
-    }
-
-    let json = json!({
-        "results": post,
-    });
-
-    db.feed.insert(0, post);
+    db.add_post(post.post_type, post.owner_uuid, post.time_type, post.tags).await;
 
     drop(db);
 
-    Ok(HttpResponse::Ok().json(json))
+    Ok(HttpResponse::Ok().finish())
 }
 
 #[derive(Default, Deserialize, Serialize, Clone)]

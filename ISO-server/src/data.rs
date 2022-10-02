@@ -1,4 +1,4 @@
-use crate::{post::Post, user::User, DB_NAME, MEMORY_DATABASE};
+use crate::{post::{Post, PostType, TimeType}, user::User, DB_NAME, MEMORY_DATABASE};
 use ::serde::{Deserialize, Serialize};
 use std::{io::{Error, Read, Write}, fs::OpenOptions, ops::Deref};
 use log::*;
@@ -81,6 +81,18 @@ impl Data {
                 self.add_update_user(user.unwrap().clone());
                 return Ok(());
             }
+        } else {
+            return Err("User not found".to_string());
+        }
+    }
+
+    pub async fn add_post(&mut self, post_type: PostType, owner_uuid: String, time_type: TimeType, tags: Vec<String>) -> Result<(), String> {
+        if self.users.contains_key(&owner_uuid) || true {
+            let mut post = Post::new(post_type, owner_uuid, time_type, tags);
+
+            self.feed.insert(0, post.clone());
+
+            return Ok(());
         } else {
             return Err("User not found".to_string());
         }
