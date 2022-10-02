@@ -27,7 +27,7 @@ Accept a user's JSON object as request body and returns the user's information.
 }
 ```
 
-### `GET` /api/v1/posts/getIndividual/{uuid}
+### `GET` /api/v1/posts/single/{uuid}
 Find an individual post by UUID
 ```js
 {
