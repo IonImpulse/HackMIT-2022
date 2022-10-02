@@ -29,9 +29,12 @@ const Splash = (props) => {
 
                 let json = await res.json();
 
-                userContext.user = json.results;
-                await AsyncStorage.setItem('@user_object', JSON.stringify(json.results));
-                props.navigation.navigate('Feed');
+                if (json.results) {
+                    userContext.user = json.results;
+                    await AsyncStorage.setItem('@user_object', JSON.stringify(json.results));
+                    props.navigation.navigate('Feed');
+                }
+
             }
             else {
                 props.navigation.navigate('Signup');

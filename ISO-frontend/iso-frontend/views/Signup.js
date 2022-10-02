@@ -80,8 +80,6 @@ const Signup = (props) => {
             setModal(false); 
             console.log(userObject);
             userContext.setUser(userObject);
-
-            props.navigation.navigate('Feed');
         }
         fn();
     }, [verificationCode]);

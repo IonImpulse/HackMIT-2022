@@ -21,8 +21,9 @@ const MyStuff = (...props) => {
                 const response = await fetch(`https://isoapp.dev/api/v1/posts/single/${uuid}`);
                 const json = await response.json();
 
-                postList.push(json.results);
-
+                if (json.results) {
+                    postList.push(json.results);
+                }
                 console.log(json);
             }
             setPosts(postList);
