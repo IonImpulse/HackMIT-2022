@@ -311,10 +311,6 @@ def is_mmed(subject_line):
         return False
     else: # make this more sophisticated later, i.e., the response must have some form of mm
         return True
-        # if "mm" in str(response_row["Body"]).lower():
-        #     return True
-        # else:
-        #     return False
 
 df["is_reply"] = df["Subject"].apply(is_reply)
 
