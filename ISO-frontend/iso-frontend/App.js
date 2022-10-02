@@ -36,7 +36,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
-        {/* <Stack.Screen name="Signup" component={Signup} /> */}
+        {<Stack.Screen name="Signup" component={Signup} /> }
         <Stack.Screen name="Feed" component={HomeWithTabs} />
         
         <Stack.Screen name="RequestDetails" component={RequestDetails} />

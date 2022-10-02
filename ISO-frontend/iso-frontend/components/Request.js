@@ -1,11 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Touchable, ScrollView } from 'react-native';
+import { Alert, StyleSheet, Text, View, TouchableOpacity, Touchable, ScrollView } from 'react-native';
 import { useState } from 'react';
 const isoColor = "#A2D2FF";
 const osiColor = "#CDB4DB";
 import { useNavigation } from '@react-navigation/native';
 const Request = ({data, title, location_string, type, tags}) => {
   const navigation = useNavigation(); 
+  const claimPressed = (text) => {
+    Alert.alert(
+      "Claim " + text + "?",
+      "Tap OK to confirm, cancel to delete",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel claim"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("You have claimed this") }
+      ]
+    );
+
+
+  }
 
 
     return (
@@ -25,14 +41,17 @@ const Request = ({data, title, location_string, type, tags}) => {
           
           <View>
           <View style={styles.tags}>
-            {tags.map((tag) =>
+          <View style={[styles.tagBox, (type=="OSI") && styles.osiBackgroundColor]}>
+              <Text style={styles.tag}>{tags[0].toLowerCase()}</Text>
+            </View>
+            {/* {tags.map((tag) =>
             <View style={[styles.tagBox, (type=="OSI") && styles.osiBackgroundColor]}>
               <Text style={styles.tag}>{tag.toLowerCase()}</Text>
             </View>
-            )}
+            )} */}
             
             </View>
-            <TouchableOpacity style={[styles.tagBox, styles.claimBox]}>
+            <TouchableOpacity onPress={() => claimPressed(type + " " + title)} style={[styles.tagBox, styles.claimBox]}>
               <Text style={[ styles.tag, styles.claimText]}>claim</Text>
             </TouchableOpacity>
 
@@ -58,10 +77,18 @@ const styles = StyleSheet.create({
     
 
   },
+  claimText: {
+    fontSize: 20,
+  },
   claimBox: {
+    position: "absolute",
+    right:0,
     borderColor: "black",
     backgroundColor: "black",
-    bottom: 0,
+    bottom: -5,
+    height: 30,
+    
+
   },
   body: {
     flexDirection: "row",
@@ -83,7 +110,11 @@ const styles = StyleSheet.create({
 
   },
   tags: {
+    position: "absolute",
+    right: 0,
     flexDirection: 'row',
+    top:-5,
+    justifyContent: "space-between",
     
   },
   tagBox: {
@@ -94,8 +125,8 @@ const styles = StyleSheet.create({
     backgroundColor: isoColor,
     marginRight: 5,
     marginTop: 2,
-    position: "absolute",
-    right: 0,
+    
+    
     borderWidth: 1.5,
     borderColor: "white",
 
