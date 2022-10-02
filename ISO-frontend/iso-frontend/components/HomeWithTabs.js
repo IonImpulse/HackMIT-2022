@@ -17,10 +17,10 @@ const HomeWithTabs = () => {
     }
   return (
         <SafeAreaView style={styles.biggerContainer}>
-            {tab == "Home" && <Feed />}
-            {tab == "Post" && <SubmitRequest/>}
-            {tab == "My Stuff" && <MyStuff />}
-            {tab == "Settings" && <Settings />}
+            {/*tab == "Home" && <Login />*/}
+            {/*tab == "Post" && <SubmitRequest/>*/}
+            {/*tab == "My Stuff" && <MyStuff />*/}
+            {/*tab == "Settings" && <Settings />*/}
             
             {/* End add component)*/}
 

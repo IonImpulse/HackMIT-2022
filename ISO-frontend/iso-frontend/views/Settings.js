@@ -91,10 +91,6 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 20,
         width: "100%",
-        
-        
-
-
     },
     subtitleText:{
         marginBottom: 5,
