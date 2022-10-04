@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ISO: In Search Of</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/main.css">
+        <script>
+            function getTheme() {
+                let theme = localStorage.getItem("theme");
+                if (theme == null) {
+                    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+                    if (darkThemeMq.matches) {
+                        theme = "dark";
+                    } else {
+                        theme = "light";
+                    }
+                    localStorage.setItem("theme", theme);
+                }
+    
+                if (theme == "light") {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            }
+    
+            getTheme();
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="splash-screen"></div>
+
+        <div id="main-grid">
+            <div id="content">
+                <div id="auth-screen" class="main-content"></div>
+                <div id="feed-screen" class="main-content hidden"></div>
+                <div id="post-screen" class="main-content hidden"></div>
+                <div id="profile-screen" class="main-content hidden"></div>
+                <div id="settings-screen" class="main-content hidden"></div>
+            </div>
+
+            <div id="bottom-navbar">
+                <button onclick="setPage('feed')">Feed</button>
+                <button onclick="setPage('post')">Post</button>
+                <button onclick="setPage('profile')">Profile</button>
+                <button onclick="setPage('settings')">Settings</button>
+            </div>
+        </div>
+
+        <script src="scripts/libs/sweetalert.min.js"></script>
+
+        <script src="scripts/utils.js"></script>
+        <script src="scripts/prelude.js"></script>
+        <script src="scripts/page_auth.js"></script>
+        <script src="scripts/page_feed.js"></script>
+        <script src="scripts/page_post.js"></script>
+        <script src="scripts/page_profile.js"></script>
+        <script src="scripts/startup.js"></script>
+
+    </body>
+</html>

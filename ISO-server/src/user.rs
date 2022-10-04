@@ -24,6 +24,7 @@ pub struct User {
     verified: String,
 }
 
+
 impl User {
     /// Create a new user
     pub fn new(uuid: String, phone_number: String) -> Result<User, String> {

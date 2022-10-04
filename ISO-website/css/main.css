@@ -1,0 +1,66 @@
+@font-face {
+    font-family: "Inter";
+    src: url('../fonts/Inter.ttf') format('truetype');
+}
+:root {
+    --font: "Inter";
+    --color-iso: #A2D2FF;
+    --color-osi: #CDB4DB;
+    --text-main: #000000;
+    --text-alt: #FFFFFF;
+
+    --l-round: 30px;
+    --m-round: 10px;
+    --s-round: 2px;
+}
+
+
+[data-theme="dark"] {
+    --color-iso: #7dabd6;
+    --color-osi: #ba80db;
+    --text-main: #FFFFFF;
+    --text-alt: #000000;
+}
+
+body * {
+    font-family: var(--font);
+    color: var(--text-main);
+}
+
+.hidden {
+    display: none;
+}
+
+#main-grid {
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 1fr 120px;
+}
+
+#bottom-navbar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    background-image: linear-gradient(to bottom, var(--color-iso), var(--color-osi));
+    border-radius: var(--l-round) var(--l-round) 0 0;
+    padding-bottom: 10px;
+    justify-items: center;
+    align-items: center;
+    color: var(--text-alt);
+}
+
+#bottom-navbar button {
+    background-image: linear-gradient(to bottom, var(--color-iso), var(--color-osi));
+    border: none;
+    border-radius: var(--l-round);
+    padding: 10px;
+    color: var(--text-alt);
+    font-size: .8em;
+    outline: none;
+    height: 100%;
+    width: 22vw;
+}

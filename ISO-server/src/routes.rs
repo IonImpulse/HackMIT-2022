@@ -190,6 +190,7 @@ pub struct ClaimPost {
     pub post_uuid: String,
 }
 
+
 #[post("/api/v1/posts/claim")]
 pub async fn claim_post(
     data: web::Json<ClaimPost>,

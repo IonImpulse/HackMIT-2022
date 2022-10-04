@@ -10,6 +10,7 @@ use std::thread;
 use actix_cors::*;
 use actix_web::rt::spawn;
 use actix_web::*;
+use actix_web_static_files::ResourceFiles;
 use actix_web_middleware_redirect_scheme::RedirectSchemeBuilder;
 
 use lazy_static::__Deref;
@@ -34,6 +35,8 @@ use data::*;
 use post::*;
 use user::*;
 use routes::*;
+
+include!(concat!(env!("OUT_DIR"), "/generated.rs"));
 
 lazy_static! {
     pub static ref MEMORY_DATABASE: Arc<Mutex<Data>> = Arc::new(Mutex::new(Data::default()));
@@ -128,6 +131,8 @@ async fn async_main() -> std::io::Result<()> {
                 .service(check_verification)
                 .service(claim_post)
                 .service(get_individual_post)
+                .service(ResourceFiles::new("/", generate()))
+
         })
         .bind(ADDRESS)?
         .run()
@@ -165,6 +170,8 @@ async fn async_main() -> std::io::Result<()> {
                 .service(check_verification)
                 .service(claim_post)
                 .service(get_individual_post)
+                .service(ResourceFiles::new("/", generate()))
+
 
         })
         .bind_openssl(ADDRESS_HTTPS, builder)?
