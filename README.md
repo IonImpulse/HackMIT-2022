@@ -1,6 +1,14 @@
 Repo (pronounced ree-poh) for team ***muddkippers*** at HackMIT 2022.
 
-# Idea: ISO (In Search Of)
+# ISO (In Search Of)
+
+At Harvey Mudd College, our emails are full of scattered “ISOs”—indicating someone is “in search of” something. “OSIs” are similar, but instead mean someone’s looking to give something away. Unfortunately, these requests often clutter student inboxes, are scattered, and cannot be easily searched or filtered. ISO streamlines the process of giving and getting, creating a centralized hub for ISO/OSI requests. By implementing a karma based system for requests, college students everywhere are incentivized to offer OSI’s and fulfill ISO’s, encouraging students to minimize new purchases and offload extra items to others. Additionally, students can easily see a requests’ location, type, and description, making ISO/OSI-ing faster than ever. By reducing the need to buy new and taking waste off students’ hands, ISO is the next step towards sustainability and generosity on college campuses. More info: https://tinyurl.com/muddskipslides 
+
+Tools used: React Native, Python, Rust, Actix, Expo, OpenSSL, NLTK, TextBlob, Pandas, Numpy, Plotly, Seaborn, scikit-learn, Babel, Node, Github, SQL, Twillio, Figma
+
+## Demo
+
+https://www.youtube.com/watch?v=kypnduvaPhA&ab_channel=ArjunTaneja
 
 <img src="https://user-images.githubusercontent.com/24578597/193460807-f7297c80-694b-4c6d-b15e-0d9b0320a2ed.jpg" width="400" />
 <img src="https://user-images.githubusercontent.com/24578597/193460805-4ec4eded-4de8-4458-98af-25299c6294e5.jpg" width="400" />
