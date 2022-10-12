@@ -10,7 +10,7 @@ Tools used: React Native, Python, Rust, Actix, Expo, OpenSSL, NLTK, TextBlob, Pa
 
 Our API is live at [isoapp.dev](https://isoapp.dev/api/v1/posts/feedPage/0)! Click for a sample our paginated feed. It's hosted on a VPS in Newark.
 
-[Here](https://www.youtube.com/watch?v=kypnduvaPhA&ab_channel=ArjunTaneja) is a recorded description and live demo of our project!
+[Here](https://www.youtube.com/watch?v=kypnduvaPhA&ab_channel=ArjunTaneja) is a recorded description and live demo of our project! And here are some screenshots:
 
 <img src="https://user-images.githubusercontent.com/24578597/193460807-f7297c80-694b-4c6d-b15e-0d9b0320a2ed.jpg" width="400" />
 <img src="https://user-images.githubusercontent.com/24578597/193460805-4ec4eded-4de8-4458-98af-25299c6294e5.jpg" width="400" />
